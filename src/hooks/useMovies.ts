@@ -7,6 +7,7 @@ export interface Movie {
   original_title: string;
   poster_path: string;
   vote_average: number;
+  overview: string;
 }
 
 interface FetchMoviesResponse {
