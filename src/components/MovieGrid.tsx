@@ -1,11 +1,11 @@
-import { SimpleGrid, Skeleton, Text } from "@chakra-ui/react";
+import { SimpleGrid, Text } from "@chakra-ui/react";
 import useMovies from "../hooks/useMovies";
 import MovieCard from "./MovieCard";
 import MovieCardSkeleton from "./MovieCardSkeleton";
 
 const MovieGrid = () => {
   const { movies, error, isLoading } = useMovies();
-  const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const skeletons = Array.from({ length: 10 }, (_, i) => i + 1);
 
   return (
     <>
