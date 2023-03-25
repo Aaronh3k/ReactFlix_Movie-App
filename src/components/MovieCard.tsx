@@ -1,5 +1,6 @@
-import { Box, Card, CardBody, Image, Text } from "@chakra-ui/react";
+import { Box, Card, CardBody, HStack, Image, Text } from "@chakra-ui/react";
 import { Movie } from "../hooks/useMovies";
+import VoteAverage from "./VoteAverage";
 
 interface props {
   movie: Movie;
@@ -18,9 +19,12 @@ const MovieCard = ({ movie }: props) => {
     >
       <Image src={imageUrl} alt={movie.original_title} />
       <CardBody>
-        <Box mt="1" fontWeight="semibold" as="h4" lineHeight="tight">
-          {movie.original_title}
-        </Box>
+        <HStack justifyContent="space-between">
+          <Box mt="1" fontWeight="semibold" as="h4" lineHeight="tight">
+            {movie.original_title}
+          </Box>
+          <VoteAverage score={movie.vote_average} />
+        </HStack>
       </CardBody>
     </Card>
   );
