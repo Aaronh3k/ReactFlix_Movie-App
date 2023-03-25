@@ -1,4 +1,5 @@
 import { Box, Card, CardBody, HStack, Image, Text } from "@chakra-ui/react";
+import apiClient from "../services/api-client";
 import { Movie } from "../hooks/useMovies";
 import VoteAverage from "./VoteAverage";
 
@@ -7,7 +8,7 @@ interface props {
 }
 
 const MovieCard = ({ movie }: props) => {
-  const imageUrl = "https://image.tmdb.org/t/p/w342/" + movie.poster_path;
+  const imageUrl = apiClient.baseImageUrl + "w342/" + movie.poster_path;
 
   return (
     <Card
