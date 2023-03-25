@@ -4,7 +4,7 @@ import apiClient from "../services/api-client";
 
 interface Movie {
   id: number;
-  name: string;
+  original_title: string;
 }
 
 interface FetchMoviesResponse {
@@ -21,14 +21,14 @@ const MovieGrid = () => {
       .get<FetchMoviesResponse>("/movie/popular")
       .then((res) => setMovies(res.data.results))
       .catch((err) => setError(err.message));
-  });
+  }, []); // Add an empty dependency array
 
   return (
     <>
       {error && <Text>{error}</Text>}
       <ul>
         {movies.map((movie) => (
-          <li key={movie.id}>{movie.name}</li>
+          <li key={movie.id}>{movie.original_title}</li>
         ))}
       </ul>
     </>
