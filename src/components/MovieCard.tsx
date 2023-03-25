@@ -12,6 +12,7 @@ const MovieCard = ({ movie }: props) => {
 
   return (
     <Card
+      width="300px"
       maxW="sm"
       borderRadius={10}
       boxShadow="md"
