@@ -11,15 +11,7 @@ const MovieCard = ({ movie }: Props) => {
   const imageUrl = apiClient.baseImageUrl + "w342/" + movie.poster_path;
 
   return (
-    <Card
-      width="300px"
-      maxW="sm"
-      borderRadius={10}
-      boxShadow="md"
-      overflow="hidden"
-      transition="all 0.3s"
-      _hover={{ transform: "scale(1.1)", boxShadow: "xl" }}
-    >
+    <Card>
       <Box position="relative">
         <Image src={imageUrl} alt={movie.original_title} />
         <Box
