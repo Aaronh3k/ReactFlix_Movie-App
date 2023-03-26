@@ -4,6 +4,7 @@ import {
   Heading,
   List,
   ListItem,
+  Spinner,
   Text,
   useColorMode,
 } from "@chakra-ui/react";
@@ -17,11 +18,11 @@ const GenreList = () => {
   const hoverColor = { light: "gray.200", dark: "gray.500" };
 
   if (isLoading) {
-    return <Text>Loading genres...</Text>;
+    return <Spinner />;
   }
 
   if (error) {
-    return <Text>Error: {error}</Text>;
+    return null;
   }
 
   return (
@@ -33,9 +34,6 @@ const GenreList = () => {
       p="4"
       bgColor={bgColor[colorMode]}
     >
-      <Heading as="h3" size="md" mb="4" textAlign="center">
-        Genres
-      </Heading>
       <Divider mb="4" />
       <List spacing={3}>
         {genres.map((genre) => (
