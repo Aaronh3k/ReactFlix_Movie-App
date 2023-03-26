@@ -10,7 +10,11 @@ import {
 } from "@chakra-ui/react";
 import useGenres from "../hooks/useGenres";
 
-const GenreList = () => {
+interface props {
+  onGenreSelect: (genreId: number) => void;
+}
+
+const GenreList = ({ onGenreSelect }: props) => {
   const { genres, error, isLoading } = useGenres();
   const { colorMode } = useColorMode();
   const bgColor = { light: "white", dark: "gray.700" };
@@ -24,6 +28,12 @@ const GenreList = () => {
   if (error) {
     return null;
   }
+
+  const handleGenreClick = (genreId: number) => {
+    if (onGenreSelect) {
+      onGenreSelect(genreId);
+    }
+  };
 
   return (
     <Box
@@ -47,6 +57,7 @@ const GenreList = () => {
             cursor="pointer"
             transition="all 0.2s"
             _hover={{ bgColor: hoverColor[colorMode] }}
+            onClick={() => handleGenreClick(genre.id)}
           >
             {genre.name}
           </ListItem>

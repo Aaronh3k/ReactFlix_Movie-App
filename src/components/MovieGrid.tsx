@@ -4,8 +4,12 @@ import MovieCard from "./MovieCard";
 import MovieCardContainer from "./MovieCardContainer";
 import MovieCardSkeleton from "./MovieCardSkeleton";
 
-const MovieGrid = () => {
-  const { movies, error, isLoading } = useMovies();
+interface MovieGridProps {
+  selectedGenreId?: number | null;
+}
+
+const MovieGrid = ({ selectedGenreId }: MovieGridProps) => {
+  const { movies, error, isLoading } = useMovies(selectedGenreId);
   const skeletons = Array.from({ length: 10 }, (_, i) => i + 1);
 
   return (

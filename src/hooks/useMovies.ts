@@ -13,12 +13,16 @@ interface FetchMoviesResponse {
   results: Movie[];
 }
 
-const useMovies = () => {
+const useMovies = (selectedGenreId?: number | null) => {
+  const endpoint = selectedGenreId
+    ? `/discover/movie?with_genres=${selectedGenreId}`
+    : "/movie/popular";
+
   const {
     data: movies,
     error,
     isLoading,
-  } = useData<FetchMoviesResponse, Movie>("/movie/popular", "results");
+  } = useData<FetchMoviesResponse, Movie>(endpoint, "results");
   return { movies, error, isLoading };
 };
 
