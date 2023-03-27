@@ -3,9 +3,19 @@ import { useState } from "react";
 import MovieGrid from "./components/MovieGrid";
 import NavBar from "./components/NavBar";
 import GenreList from "./components/GenreList";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
+import MovieDetailsPage from "./components/MovieDetailsPage";
 
-function App() {
+function AppContent() {
   const [selectedGenre, setSelectedGenre] = useState<number | null>(null);
+  const location = useLocation();
+
+  const isHomePage = location.pathname === "/";
 
   return (
     <Grid
@@ -18,16 +28,30 @@ function App() {
         <NavBar />
       </GridItem>
       <Show above="lg">
-        <GridItem area={"aside"}>
-          <GenreList
-            onGenreSelect={(genreId: number) => setSelectedGenre(genreId)}
-          />
-        </GridItem>
+        {isHomePage && (
+          <GridItem area={"aside"}>
+            <GenreList onGenreSelect={setSelectedGenre} />
+          </GridItem>
+        )}
       </Show>
       <GridItem area={"main"}>
-        <MovieGrid selectedGenreId={selectedGenre} />
+        <Routes>
+          <Route
+            path="/"
+            element={<MovieGrid selectedGenreId={selectedGenre} />}
+          />
+          <Route path="/movie/:movieId" element={<MovieDetailsPage />} />
+        </Routes>
       </GridItem>
     </Grid>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
   );
 }
 

@@ -22,13 +22,13 @@ const MovieGrid = ({ selectedGenreId }: MovieGridProps) => {
       >
         {isLoading &&
           skeletons.map((skeleton) => (
-            <MovieCardContainer>
-              <MovieCardSkeleton key={skeleton} />
+            <MovieCardContainer key={skeleton}>
+              <MovieCardSkeleton />
             </MovieCardContainer>
           ))}
         {movies.map((movie) => (
-          <MovieCardContainer>
-            <MovieCard key={movie.id} movie={movie} />
+          <MovieCardContainer key={movie.id}>
+            <MovieCard movie={movie} />
           </MovieCardContainer>
         ))}
       </SimpleGrid>
