@@ -1,4 +1,4 @@
-import { Grid, GridItem, Show } from "@chakra-ui/react";
+import { Box, Grid, GridItem, Show } from "@chakra-ui/react";
 import { useState } from "react";
 import MovieGrid from "./components/MovieGrid";
 import NavBar from "./components/NavBar";
@@ -50,7 +50,9 @@ function AppContent() {
 function App() {
   return (
     <Router>
-      <AppContent />
+      <Box margin={0}>
+        <AppContent />
+      </Box>
     </Router>
   );
 }

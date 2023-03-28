@@ -21,7 +21,6 @@ export interface MovieDetails {
   release_date: string;
   runtime: number;
   vote_average: number;
-  genres: Array<{ id: number; name: string }>;
   backdrop_path: string;
 }
 
@@ -85,13 +84,12 @@ const MovieDetailsPage = () => {
         direction={{ base: "column", md: "row" }}
         mt={6}
         mx={{ base: 4, md: 16 }}
+        alignItems="start"
       >
         <Image
           src={`${imageUrl}original${movieDetails?.poster_path}`}
           alt={movieDetails?.original_title}
-          width="400px" // Set the fixed width
-          height="800px" // Set the fixed height
-          objectFit="cover" // Ensure the image is resized correctly
+          width={{ base: "100%", md: "30%" }}
           borderRadius="md"
           boxShadow={`0 4px 6px ${boxShadowColor}`}
           mb={{ base: 4, md: 0 }}
@@ -104,13 +102,6 @@ const MovieDetailsPage = () => {
           <Text>Release Date: {movieDetails?.release_date}</Text>
           <Text>Runtime: {movieDetails?.runtime} minutes</Text>
           <Text>Rating: {movieDetails?.vote_average}/10</Text>
-          <HStack spacing={1}>
-            {movieDetails?.genres.map((genre) => (
-              <Tag key={genre.id} colorScheme="red">
-                {genre.name}
-              </Tag>
-            ))}
-          </HStack>
           <Box mt={4}>
             <Text fontWeight="bold">Overview:</Text>
             <Text>{movieDetails?.overview}</Text>
