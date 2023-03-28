@@ -16,6 +16,7 @@ import ScrollableImage from "../components/ScrollableImage";
 import useMovieCredits, { Cast } from "../hooks/useMovieCredits";
 export interface MovieDetails {
   original_title: string;
+  title: string;
   overview: string;
   poster_path: string;
   release_date: string;
@@ -75,7 +76,7 @@ const MovieDetailsPage = () => {
   };
 
   return (
-    <Box>
+    <Box userSelect="none">
       <ScrollableImage
         src={`${imageUrl}w1280${movieDetails?.backdrop_path}`}
         alt={movieDetails?.original_title || ""}
@@ -88,7 +89,7 @@ const MovieDetailsPage = () => {
       >
         <Image
           src={`${imageUrl}original${movieDetails?.poster_path}`}
-          alt={movieDetails?.original_title}
+          alt={movieDetails?.title}
           width={{ base: "100%", md: "30%" }}
           borderRadius="md"
           boxShadow={`0 4px 6px ${boxShadowColor}`}
@@ -97,7 +98,7 @@ const MovieDetailsPage = () => {
 
         <VStack align="start" spacing={4} ml={{ base: 0, md: 8 }} flex="1">
           <Text fontSize="3xl" fontWeight="bold">
-            {movieDetails?.original_title}
+            {movieDetails?.title}
           </Text>
           <Text>Release Date: {movieDetails?.release_date}</Text>
           <Text>Runtime: {movieDetails?.runtime} minutes</Text>

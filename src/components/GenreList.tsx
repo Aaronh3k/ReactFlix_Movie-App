@@ -8,6 +8,7 @@ import {
   Text,
   useColorMode,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import useGenres from "../hooks/useGenres";
 
 interface props {
@@ -17,9 +18,11 @@ interface props {
 const GenreList = ({ onGenreSelect }: props) => {
   const { genres, error, isLoading } = useGenres();
   const { colorMode } = useColorMode();
+  const [activeGenre, setActiveGenre] = useState<number | null>(null);
   const bgColor = { light: "white", dark: "gray.700" };
   const borderColor = { light: "gray.200", dark: "gray.600" };
   const hoverColor = { light: "gray.200", dark: "gray.500" };
+  const activeColor = { light: "blue.200", dark: "blue.700" };
 
   if (isLoading) {
     return <Spinner />;
@@ -30,6 +33,7 @@ const GenreList = ({ onGenreSelect }: props) => {
   }
 
   const handleGenreClick = (genreId: number) => {
+    setActiveGenre(genreId);
     if (onGenreSelect) {
       onGenreSelect(genreId);
     }
@@ -43,6 +47,7 @@ const GenreList = ({ onGenreSelect }: props) => {
       borderColor={borderColor[colorMode]}
       p="4"
       bgColor={bgColor[colorMode]}
+      userSelect="none"
     >
       <Divider mb="4" />
       <List spacing={3}>
@@ -54,8 +59,9 @@ const GenreList = ({ onGenreSelect }: props) => {
             py="2"
             borderRadius="md"
             fontWeight="medium"
-            cursor="pointer"
+            cursor={genre.id === activeGenre ? "default" : "pointer"}
             transition="all 0.2s"
+            bgColor={genre.id === activeGenre ? activeColor[colorMode] : ""}
             _hover={{ bgColor: hoverColor[colorMode] }}
             onClick={() => handleGenreClick(genre.id)}
           >

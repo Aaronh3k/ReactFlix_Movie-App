@@ -12,7 +12,7 @@ const MovieCard = ({ movie }: Props) => {
   const imageUrl = apiClient.baseImageUrl + "w342/" + movie.poster_path;
 
   return (
-    <Card>
+    <Card userSelect="none">
       <Link to={`/movie/${movie.id}`}>
         <Box position="relative">
           <Image src={imageUrl} alt={movie.original_title} />
@@ -39,7 +39,7 @@ const MovieCard = ({ movie }: Props) => {
       <CardBody>
         <HStack justifyContent="space-between">
           <Box mt="1" fontWeight="semibold" as="h4" lineHeight="tight">
-            {movie.original_title}
+            {movie.title}
           </Box>
           <VoteAverage score={movie.vote_average} />
         </HStack>

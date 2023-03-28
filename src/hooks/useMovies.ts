@@ -3,6 +3,7 @@ import useData from "./useData";
 export interface Movie {
   id: number;
   original_title: string;
+  title: string;
   poster_path: string;
   vote_average: number;
   overview: string;
