@@ -10,6 +10,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import MovieDetailsPage from "./components/MovieDetailsPage";
+import PersonDetailsPage from "./components/PersonDetailsPage";
 
 function AppContent() {
   const [selectedGenre, setSelectedGenre] = useState<number | null>(null);
@@ -41,6 +42,7 @@ function AppContent() {
             element={<MovieGrid selectedGenreId={selectedGenre} />}
           />
           <Route path="/movie/:movieId" element={<MovieDetailsPage />} />
+          <Route path="/person/:personId" element={<PersonDetailsPage />} />
         </Routes>
       </GridItem>
     </Grid>

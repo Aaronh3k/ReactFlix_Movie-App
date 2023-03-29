@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import {
   Box,
   Text,
@@ -9,7 +9,9 @@ import {
   Flex,
   SimpleGrid,
   useColorModeValue,
+  Center,
 } from "@chakra-ui/react";
+
 import useMovieDetails from "../hooks/useMovieDetails";
 import apiClient from "../services/api-client";
 import ScrollableImage from "../components/ScrollableImage";
@@ -47,28 +49,36 @@ const MovieDetailsPage = () => {
 
   const renderCast = (castMembers: Cast[]) => {
     return (
-      <VStack spacing={4} align="start" mt={6}>
+      <VStack spacing={4} align="start" mt={6} w="100%">
         <Text fontSize="2xl" fontWeight="bold">
           Cast
         </Text>
-        <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} spacing={4}>
-          {castMembers.slice(0, 10).map((member) => (
-            <HStack key={member.id} spacing={4}>
-              {member.profile_path && (
-                <Image
-                  src={`${imageUrl}w92${member.profile_path}`}
-                  alt={member.name}
-                  borderRadius="md"
-                  boxShadow={`0 4px 6px ${boxShadowColor}`}
-                />
-              )}
-              <VStack align="start" spacing={0}>
-                <Text fontWeight="bold">{member.name}</Text>
-                <Text fontSize="sm" color="gray.500">
-                  {member.character}
-                </Text>
-              </VStack>
-            </HStack>
+        <SimpleGrid
+          columns={{ base: 2, sm: 3, md: 4, lg: 6 }}
+          spacing={4}
+          w="100%"
+        >
+          {castMembers.slice(0, 12).map((member) => (
+            <Center key={member.id}>
+              <Link to={`/person/${member.id}`}>
+                <VStack align="center" spacing={2}>
+                  {member.profile_path && (
+                    <Image
+                      src={`${imageUrl}w92${member.profile_path}`}
+                      alt={member.name}
+                      borderRadius="md"
+                      boxShadow={`0 4px 6px ${boxShadowColor}`}
+                    />
+                  )}
+                  <Text fontWeight="bold" textAlign="center">
+                    {member.name}
+                  </Text>
+                  <Text fontSize="sm" color="gray.500" textAlign="center">
+                    {member.character}
+                  </Text>
+                </VStack>
+              </Link>
+            </Center>
           ))}
         </SimpleGrid>
       </VStack>
