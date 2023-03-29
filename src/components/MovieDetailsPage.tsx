@@ -16,6 +16,7 @@ import useMovieDetails from "../hooks/useMovieDetails";
 import apiClient from "../services/api-client";
 import ScrollableImage from "../components/ScrollableImage";
 import useMovieCredits, { Cast } from "../hooks/useMovieCredits";
+import DefaultProfileImage from "./DefaultProfileImage";
 export interface MovieDetails {
   original_title: string;
   title: string;
@@ -62,13 +63,15 @@ const MovieDetailsPage = () => {
             <Center key={member.id}>
               <Link to={`/person/${member.id}`}>
                 <VStack align="center" spacing={2}>
-                  {member.profile_path && (
+                  {member.profile_path ? (
                     <Image
                       src={`${imageUrl}w92${member.profile_path}`}
                       alt={member.name}
                       borderRadius="md"
                       boxShadow={`0 4px 6px ${boxShadowColor}`}
                     />
+                  ) : (
+                    <DefaultProfileImage />
                   )}
                   <Text fontWeight="bold" textAlign="center">
                     {member.name}
