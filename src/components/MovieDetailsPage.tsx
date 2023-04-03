@@ -121,6 +121,7 @@ const MovieDetailsPage = () => {
           alt={`${movieDetails?.title} Poster`}
           borderRadius="md"
           boxShadow={`0 4px 6px ${boxShadowColor}`}
+          p={10}
         />
       ))}
     </SimpleGrid>
