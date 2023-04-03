@@ -7,7 +7,7 @@ import {
   HStack,
   useColorModeValue,
 } from "@chakra-ui/react";
-import usePersonDetails, { PersonDetails } from "../hooks/usePersonDetails";
+import usePersonDetails from "../hooks/usePersonDetails";
 import apiClient from "../services/api-client";
 
 const PersonDetailsPage = () => {
