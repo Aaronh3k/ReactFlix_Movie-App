@@ -1,17 +1,15 @@
-// src/components/NavBar.tsx
-
 import {
   Box,
   Flex,
-  Image,
+  Text,
   Input,
   InputGroup,
   InputLeftElement,
   useColorMode,
-  Text,
+  Spacer,
+  Link as ChakraLink,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
-import logo from "../assets/logo.webp";
 import ColorModeSwitch from "./ColorModeSwitch";
 import { Link } from "react-router-dom";
 
@@ -26,31 +24,20 @@ const NavBar = () => {
       borderBottomWidth="1px"
       borderColor={borderColor[colorMode]}
       boxShadow="sm"
+      userSelect="none"
     >
       <Flex
         justifyContent="space-between"
         alignItems="center"
         padding={{ base: "10px", lg: "10px 20px" }}
-        maxWidth="1200px"
         margin="auto"
         width="100%"
         marginLeft={{ base: "3px", lg: "7px" }}
       >
-        {/* Group logo and Home heading */}
-        <Flex alignItems="center">
-          <Image src={logo} boxSize="60px" />
-          <Text
-            as={Link}
-            to="/"
-            fontWeight="bold"
-            fontSize="lg"
-            textDecoration="none"
-            marginLeft="10px"
-            _hover={{ textDecoration: "underline" }}
-          >
-            Home
-          </Text>
-        </Flex>
+        <Text fontWeight="bold" fontSize="2xl" textDecoration="none">
+          ReactFlix
+        </Text>
+        <Spacer />
         <InputGroup maxW="400px">
           <InputLeftElement pointerEvents="none">
             <SearchIcon color="gray.300" />
@@ -62,6 +49,50 @@ const NavBar = () => {
             borderRadius="md"
           />
         </InputGroup>
+        <Spacer />
+        <Flex alignItems="center">
+          <ChakraLink
+            as={Link}
+            to="/"
+            ml={4}
+            _hover={{ textDecoration: "underline" }}
+          >
+            Home
+          </ChakraLink>
+          <ChakraLink
+            as={Link}
+            to="/movies"
+            ml={4}
+            _hover={{ textDecoration: "underline" }}
+          >
+            Movies
+          </ChakraLink>
+          <ChakraLink
+            as={Link}
+            to="/tvshows"
+            ml={4}
+            _hover={{ textDecoration: "underline" }}
+          >
+            TV Shows
+          </ChakraLink>
+          <ChakraLink
+            as={Link}
+            to="/trending"
+            ml={4}
+            _hover={{ textDecoration: "underline" }}
+          >
+            Trending
+          </ChakraLink>
+          <ChakraLink
+            as={Link}
+            to="/favorites"
+            ml={4}
+            _hover={{ textDecoration: "underline" }}
+          >
+            Favourites
+          </ChakraLink>
+        </Flex>
+        <Spacer />
         <ColorModeSwitch />
       </Flex>
     </Box>
