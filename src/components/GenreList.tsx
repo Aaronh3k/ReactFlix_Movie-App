@@ -10,13 +10,16 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import useGenres from "../hooks/useGenres";
+import useTVGenres from "../hooks/useTVGenres";
 
 interface props {
   onGenreSelect: (genreId: number) => void;
+  type: "movie" | "tv";
 }
 
-const GenreList = ({ onGenreSelect }: props) => {
-  const { genres, error, isLoading } = useGenres();
+const GenreList = ({ onGenreSelect, type }: props) => {
+  const { genres, error, isLoading } =
+    type === "movie" ? useGenres() : useTVGenres();
   const { colorMode } = useColorMode();
   const [activeGenre, setActiveGenre] = useState<number | null>(null);
   const bgColor = { light: "white", dark: "gray.700" };
