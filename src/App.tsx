@@ -11,12 +11,16 @@ import {
 } from "react-router-dom";
 import MovieDetailsPage from "./components/MovieDetailsPage";
 import PersonDetailsPage from "./components/PersonDetailsPage";
+import HomePage from "./components/HomePage";
 
 function AppContent() {
   const [selectedGenre, setSelectedGenre] = useState<number | null>(null);
   const location = useLocation();
 
   const isHomePage = location.pathname === "/";
+  const isMoviesPage = location.pathname === "/movies";
+  const isTvShowsPage = location.pathname === "/tvshows";
+  const showAside = isMoviesPage || isTvShowsPage;
 
   return (
     <Grid
@@ -24,12 +28,18 @@ function AppContent() {
         base: `"nav" "main"`,
         lg: `"nav nav" "aside main"`,
       }}
+      templateColumns={{
+        base: "1fr",
+        lg: showAside ? "minmax(200px, auto) 1fr" : "1fr",
+      }}
     >
-      <GridItem area={"nav"}>
-        <NavBar />
-      </GridItem>
+      {!isHomePage && (
+        <GridItem area={"nav"}>
+          <NavBar />
+        </GridItem>
+      )}
       <Show above="lg">
-        {isHomePage && (
+        {showAside && (
           <GridItem area={"aside"}>
             <GenreList onGenreSelect={setSelectedGenre} />
           </GridItem>
@@ -37,16 +47,17 @@ function AppContent() {
       </Show>
       <GridItem
         area={"main"}
-        colStart={{ base: 1, lg: isHomePage ? 2 : 1 }}
+        colStart={{ base: 1, lg: isHomePage ? 1 : 2 }}
         colEnd={{ base: 2, lg: 3 }}
       >
         <Routes>
           <Route
-            path="/"
+            path="/movies"
             element={<MovieGrid selectedGenreId={selectedGenre} />}
           />
           <Route path="/movie/:movieId" element={<MovieDetailsPage />} />
           <Route path="/person/:personId" element={<PersonDetailsPage />} />
+          <Route path="/" element={<HomePage />} />
         </Routes>
       </GridItem>
     </Grid>
