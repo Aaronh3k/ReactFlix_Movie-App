@@ -35,7 +35,11 @@ function AppContent() {
           </GridItem>
         )}
       </Show>
-      <GridItem area={"main"}>
+      <GridItem
+        area={"main"}
+        colStart={{ base: 1, lg: isHomePage ? 2 : 1 }}
+        colEnd={{ base: 2, lg: 3 }}
+      >
         <Routes>
           <Route
             path="/"
