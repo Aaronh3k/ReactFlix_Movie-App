@@ -1,0 +1,18 @@
+{
+    "version": 2,
+    "routes": [
+      {
+        "src": "/(.*).js",
+        "dest": "/_next/$1.js"
+      },
+      {
+        "src": "/(.*).js.map",
+        "dest": "/_next/$1.js.map"
+      },
+      {
+        "src": "/(.*)",
+        "dest": "/index.html"
+      }
+    ]
+  }
+  
