@@ -1,36 +1,50 @@
-import React from "react";
-import { Box, Image, Text, VStack, Badge } from "@chakra-ui/react";
+import { Box, Card, CardBody, HStack, Image, Text } from "@chakra-ui/react";
+import apiClient from "../services/api-client";
 import { TVShowData } from "../hooks/useTVShows";
+import VoteAverage from "./VoteAverage";
+import { Link } from "react-router-dom";
 
-interface TVShowCardProps {
+interface Props {
   tvShow: TVShowData;
 }
 
-const TVShowCard: React.FC<TVShowCardProps> = ({ tvShow }) => {
-  const { name, first_air_date, poster_path, vote_average, vote_count } =
-    tvShow;
-  const posterBaseUrl = "https://image.tmdb.org/t/p/w500";
+const TVShowCard = ({ tvShow }: Props) => {
+  const imageUrl = apiClient.baseImageUrl + "w342/" + tvShow.poster_path;
 
   return (
-    <VStack spacing={2} alignItems="start">
-      <Image
-        src={posterBaseUrl + poster_path}
-        alt={name}
-        width="100%"
-        borderRadius="md"
-      />
-      <Box>
-        <Text fontWeight="bold" fontSize="lg">
-          {name}
-        </Text>
-        <Text fontSize="sm" color="gray.500">
-          First aired: {first_air_date}
-        </Text>
-      </Box>
-      <Badge colorScheme="blue" borderRadius="full" px={2} py={1}>
-        {vote_average} ({vote_count} votes)
-      </Badge>
-    </VStack>
+    <Card userSelect="none">
+      <Link to={`/tvshow/${tvShow.id}`}>
+        <Box position="relative">
+          <Image src={imageUrl} alt={tvShow.original_name} />
+          <Box
+            position="absolute"
+            top="0"
+            left="0"
+            right="0"
+            bottom="0"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            bg="rgba(0, 0, 0, 0.7)"
+            opacity="0"
+            transition="all 0.3s"
+            _hover={{ opacity: "1" }}
+          >
+            <Text color="white" textAlign="center">
+              {tvShow.overview}
+            </Text>
+          </Box>
+        </Box>
+      </Link>
+      <CardBody>
+        <HStack justifyContent="space-between">
+          <Box mt="1" fontWeight="semibold" as="h4" lineHeight="tight">
+            {tvShow.name}
+          </Box>
+          <VoteAverage score={tvShow.vote_average} />
+        </HStack>
+      </CardBody>
+    </Card>
   );
 };
 
