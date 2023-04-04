@@ -12,9 +12,16 @@ import {
 import MovieDetailsPage from "./components/MovieDetailsPage";
 import PersonDetailsPage from "./components/PersonDetailsPage";
 import HomePage from "./components/HomePage";
+import TrendingPage from "./components/TrendingPage";
+import TVShowGrid from "./components/TVShowGrid";
 
 function AppContent() {
-  const [selectedGenre, setSelectedGenre] = useState<number | null>(null);
+  const [selectedMovieGenre, setSelectedMovieGenre] = useState<number | null>(
+    null
+  );
+  const [selectedTVShowGenre, setSelectedTVShowGenre] = useState<number | null>(
+    null
+  );
   const location = useLocation();
 
   const isHomePage = location.pathname === "/";
@@ -41,7 +48,11 @@ function AppContent() {
       <Show above="lg">
         {showAside && (
           <GridItem area={"aside"}>
-            <GenreList onGenreSelect={setSelectedGenre} />
+            {isMoviesPage ? (
+              <GenreList type="movie" onGenreSelect={setSelectedMovieGenre} />
+            ) : (
+              <GenreList type="tv" onGenreSelect={setSelectedTVShowGenre} />
+            )}
           </GridItem>
         )}
       </Show>
@@ -53,11 +64,16 @@ function AppContent() {
         <Routes>
           <Route
             path="/movies"
-            element={<MovieGrid selectedGenreId={selectedGenre} />}
+            element={<MovieGrid selectedGenreId={selectedMovieGenre} />}
           />
           <Route path="/movie/:movieId" element={<MovieDetailsPage />} />
           <Route path="/person/:personId" element={<PersonDetailsPage />} />
           <Route path="/" element={<HomePage />} />
+          <Route path="/trending" element={<TrendingPage />} />
+          <Route
+            path="/tvshows"
+            element={<TVShowGrid selectedGenreId={selectedTVShowGenre} />}
+          />
         </Routes>
       </GridItem>
     </Grid>
