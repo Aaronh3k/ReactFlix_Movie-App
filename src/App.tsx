@@ -12,6 +12,7 @@ import {
 import MovieDetailsPage from "./components/MovieDetailsPage";
 import PersonDetailsPage from "./components/PersonDetailsPage";
 import HomePage from "./components/HomePage";
+import TrendingPage from "./components/TrendingPage";
 
 function AppContent() {
   const [selectedGenre, setSelectedGenre] = useState<number | null>(null);
@@ -58,6 +59,7 @@ function AppContent() {
           <Route path="/movie/:movieId" element={<MovieDetailsPage />} />
           <Route path="/person/:personId" element={<PersonDetailsPage />} />
           <Route path="/" element={<HomePage />} />
+          <Route path="/trending" element={<TrendingPage />} />
         </Routes>
       </GridItem>
     </Grid>
