@@ -15,6 +15,7 @@ import HomePage from "./components/HomePage";
 import TrendingPage from "./components/TrendingPage";
 import TVShowGrid from "./components/TVShowGrid";
 import TVShowDetailsPage from "./components/TVShowDetailsPage";
+import PeopleGrid from "./components/PeopleGrid";
 
 function AppContent() {
   const [selectedMovieGenre, setSelectedMovieGenre] = useState<number | null>(
@@ -76,6 +77,7 @@ function AppContent() {
             element={<TVShowGrid selectedGenreId={selectedTVShowGenre} />}
           />
           <Route path="/tvshow/:tvId" element={<TVShowDetailsPage />} />
+          <Route path="/people" element={<PeopleGrid />} />
         </Routes>
       </GridItem>
     </Grid>
