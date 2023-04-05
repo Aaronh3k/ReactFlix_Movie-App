@@ -1,6 +1,17 @@
 import React, { useState } from "react";
 import useData from "../hooks/useData";
 import { Dropdown } from "./Dropdown";
+import {
+  Box,
+  Heading,
+  VStack,
+  HStack,
+  Text,
+  Image,
+  SimpleGrid,
+  useColorModeValue,
+} from "@chakra-ui/react";
+import apiClient from "../services/api-client";
 
 interface TrendingItem {
   id: number;
@@ -34,10 +45,15 @@ const TrendingPage: React.FC = () => {
     setTimeWindow(value);
   };
 
+  const imageUrl = apiClient.baseImageUrl;
+  const boxShadowColor = useColorModeValue("gray.400", "gray.800");
+
   return (
-    <div>
-      <h1>Trending</h1>
-      <div>
+    <VStack spacing={6}>
+      <Heading as="h1" size="2xl">
+        Trending
+      </Heading>
+      <HStack spacing={6}>
         <Dropdown
           label="Media Type"
           options={[
@@ -58,18 +74,36 @@ const TrendingPage: React.FC = () => {
           value={timeWindow}
           onChange={handleTimeWindowChange}
         />
-      </div>
-      {isLoading && <p>Loading...</p>}
-      {error && <p>Error: {error}</p>}
-      <ul>
+      </HStack>
+      {isLoading && <Text>Loading...</Text>}
+      {error && <Text>Error: {error}</Text>}
+      <SimpleGrid
+        columns={{ base: 1, sm: 2, md: 3, lg: 4 }}
+        spacing={8}
+        w="100%"
+      >
         {data.map((item) => (
-          <li key={item.id}>
-            <h2>{item.title || item.original_title || item.name}</h2>
-            <p>{item.overview}</p>
-          </li>
+          <Box
+            key={item.id}
+            boxShadow={`0 4px 6px ${boxShadowColor}`}
+            p={4}
+            borderRadius="md"
+            bg={useColorModeValue("white", "gray.700")}
+          >
+            <Image
+              src={`${imageUrl}w185${item.poster_path}`}
+              alt={item.title || item.original_title || item.name}
+              mb={4}
+              borderRadius="md"
+            />
+            <Heading as="h2" size="md" mb={2}>
+              {item.title || item.original_title || item.name}
+            </Heading>
+            <Text noOfLines={3}>{item.overview}</Text>
+          </Box>
         ))}
-      </ul>
-    </div>
+      </SimpleGrid>
+    </VStack>
   );
 };
 
