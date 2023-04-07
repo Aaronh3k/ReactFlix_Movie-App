@@ -77,6 +77,14 @@ const NavBar = () => {
           </ChakraLink>
           <ChakraLink
             as={Link}
+            to="/people"
+            ml={4}
+            _hover={{ textDecoration: "underline" }}
+          >
+            People
+          </ChakraLink>
+          <ChakraLink
+            as={Link}
             to="/trending"
             ml={4}
             _hover={{ textDecoration: "underline" }}

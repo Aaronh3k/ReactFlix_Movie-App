@@ -41,6 +41,7 @@ const HomePage = () => {
           {[
             { href: "/movies", label: "Movies" },
             { href: "/tvshows", label: "TV Shows" },
+            { href: "/people", label: "People" },
             { href: "/trending", label: "Trending" },
             { href: "/favorites", label: "Favorites" },
           ].map(({ href, label }) => (
