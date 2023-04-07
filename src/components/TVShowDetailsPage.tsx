@@ -10,10 +10,13 @@ import {
   SimpleGrid,
   useColorModeValue,
   Center,
+  Spinner,
 } from "@chakra-ui/react";
 import useTVShowDetails from "../hooks/useTVShowDetails";
 import apiClient from "../services/api-client";
 import ScrollableImage from "../components/ScrollableImage";
+import useTVShowCredits, { Cast } from "../hooks/useTVShowCredits";
+import DefaultProfileImage from "./DefaultProfileImage";
 
 export interface TVShowDetails {
   original_name: string;
@@ -32,14 +35,63 @@ const TVShowDetailsPage = () => {
   const { tvShowDetails, error, isLoading } = useTVShowDetails(tvShowId);
   const imageUrl = apiClient.baseImageUrl;
   const boxShadowColor = useColorModeValue("gray.400", "gray.800");
+  const {
+    cast,
+    error: castError,
+    isLoading: castLoading,
+  } = useTVShowCredits(tvShowId);
 
-  if (isLoading) {
-    return <Text>Loading...</Text>;
+  if (isLoading || castLoading) {
+    return (
+      <Center>
+        <Spinner />
+      </Center>
+    );
   }
 
-  if (error) {
-    return <Text>Error: {error}</Text>;
+  if (error || castError) {
+    return <Text>Error: {error || castError}</Text>;
   }
+
+  const renderCast = (castMembers: Cast[]) => {
+    return (
+      <VStack spacing={4} align="start" mt={6} w="100%">
+        <Text fontSize="2xl" fontWeight="bold">
+          Cast
+        </Text>
+        <SimpleGrid
+          columns={{ base: 2, sm: 3, md: 4, lg: 6 }}
+          spacing={4}
+          w="100%"
+        >
+          {castMembers.slice(0, 12).map((member) => (
+            <Center key={member.id}>
+              <Link to={`/person/${member.id}`}>
+                <VStack align="center" spacing={2}>
+                  {member.profile_path ? (
+                    <Image
+                      src={`${imageUrl}w92${member.profile_path}`}
+                      alt={member.name}
+                      borderRadius="md"
+                      boxShadow={`0 4px 6px ${boxShadowColor}`}
+                    />
+                  ) : (
+                    <DefaultProfileImage />
+                  )}
+                  <Text fontWeight="bold" textAlign="center">
+                    {member.name}
+                  </Text>
+                  <Text fontSize="sm" color="gray.500" textAlign="center">
+                    {member.character}
+                  </Text>
+                </VStack>
+              </Link>
+            </Center>
+          ))}
+        </SimpleGrid>
+      </VStack>
+    );
+  };
 
   return (
     <Box userSelect="none">
@@ -85,6 +137,7 @@ const TVShowDetailsPage = () => {
             <Text fontWeight="bold">Overview:</Text>
             <Text>{tvShowDetails?.overview}</Text>
           </Box>
+          {cast && renderCast(cast)}
         </VStack>
       </Flex>
     </Box>
