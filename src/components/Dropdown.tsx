@@ -1,4 +1,5 @@
 import React from "react";
+import { Flex, Select } from "@chakra-ui/react";
 
 interface DropdownProps {
   label: string;
@@ -18,15 +19,15 @@ export const Dropdown: React.FC<DropdownProps> = ({
   };
 
   return (
-    <div>
+    <Flex alignItems="center">
       <label>{label}:</label>
-      <select value={value} onChange={handleChange}>
+      <Select value={value} onChange={handleChange} ml="2">
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}
           </option>
         ))}
-      </select>
-    </div>
+      </Select>
+    </Flex>
   );
 };

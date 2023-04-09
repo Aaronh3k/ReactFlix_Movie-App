@@ -10,6 +10,7 @@ import {
   Image,
   SimpleGrid,
   useColorModeValue,
+  Flex,
 } from "@chakra-ui/react";
 import apiClient from "../services/api-client";
 
@@ -49,11 +50,8 @@ const TrendingPage: React.FC = () => {
   const boxShadowColor = useColorModeValue("gray.400", "gray.800");
 
   return (
-    <VStack spacing={6}>
-      <Heading as="h1" size="2xl">
-        Trending
-      </Heading>
-      <HStack spacing={6}>
+    <VStack spacing={6} userSelect="none">
+      <Flex justify="flex-end" w="100%">
         <Dropdown
           label="Media Type"
           options={[
@@ -74,7 +72,7 @@ const TrendingPage: React.FC = () => {
           value={timeWindow}
           onChange={handleTimeWindowChange}
         />
-      </HStack>
+      </Flex>
       {isLoading && <Text>Loading...</Text>}
       {error && <Text>Error: {error}</Text>}
       <SimpleGrid
