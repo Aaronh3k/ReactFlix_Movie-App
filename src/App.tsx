@@ -1,94 +1,44 @@
-import { Box, Grid, GridItem, Show } from "@chakra-ui/react";
-import { useState } from "react";
-import MovieGrid from "./components/MovieGrid";
-import NavBar from "./components/NavBar";
-import GenreList from "./components/GenreList";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useLocation,
-} from "react-router-dom";
-import MovieDetailsPage from "./components/MovieDetailsPage";
-import PersonDetailsPage from "./components/PersonDetailsPage";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+import { Box } from "@chakra-ui/react";
+import { supabase } from "./supabaseClient";
+import SignIn from "./components/SignIn";
+import AppContent from "./AppContent";
+import { Session } from "@supabase/supabase-js";
 import HomePage from "./components/HomePage";
-import TrendingPage from "./components/TrendingPage";
-import TVShowGrid from "./components/TVShowGrid";
-import TVShowDetailsPage from "./components/TVShowDetailsPage";
-import PeopleGrid from "./components/PeopleGrid";
-
-function AppContent() {
-  const [selectedMovieGenre, setSelectedMovieGenre] = useState<number | null>(
-    null
-  );
-  const [selectedTVShowGenre, setSelectedTVShowGenre] = useState<number | null>(
-    null
-  );
-  const location = useLocation();
-
-  const isHomePage = location.pathname === "/";
-  const isMoviesPage = location.pathname === "/movies";
-  const isTvShowsPage = location.pathname === "/tvshows";
-  const showAside = isMoviesPage || isTvShowsPage;
-
-  return (
-    <Grid
-      templateAreas={{
-        base: `"nav" "main"`,
-        lg: `"nav nav" "aside main"`,
-      }}
-      templateColumns={{
-        base: "1fr",
-        lg: showAside ? "minmax(200px, auto) 1fr" : "1fr",
-      }}
-    >
-      {!isHomePage && (
-        <GridItem area={"nav"}>
-          <NavBar />
-        </GridItem>
-      )}
-      <Show above="lg">
-        {showAside && (
-          <GridItem area={"aside"}>
-            {isMoviesPage ? (
-              <GenreList type="movie" onGenreSelect={setSelectedMovieGenre} />
-            ) : (
-              <GenreList type="tv" onGenreSelect={setSelectedTVShowGenre} />
-            )}
-          </GridItem>
-        )}
-      </Show>
-      <GridItem
-        area={"main"}
-        colStart={{ base: 1, lg: isHomePage ? 1 : 2 }}
-        colEnd={{ base: 2, lg: 3 }}
-      >
-        <Routes>
-          <Route
-            path="/movies"
-            element={<MovieGrid selectedGenreId={selectedMovieGenre} />}
-          />
-          <Route path="/movie/:movieId" element={<MovieDetailsPage />} />
-          <Route path="/person/:personId" element={<PersonDetailsPage />} />
-          <Route path="/" element={<HomePage />} />
-          <Route path="/trending" element={<TrendingPage />} />
-          <Route
-            path="/tvshows"
-            element={<TVShowGrid selectedGenreId={selectedTVShowGenre} />}
-          />
-          <Route path="/tvshow/:tvId" element={<TVShowDetailsPage />} />
-          <Route path="/people" element={<PeopleGrid />} />
-        </Routes>
-      </GridItem>
-    </Grid>
-  );
-}
 
 function App() {
+  const [session, setSession] = useState<Session | null>(null);
+
+  useEffect(() => {
+    supabase.auth
+      .getSession()
+      .then(({ data: { session } }) => {
+        setSession(session);
+      })
+      .catch((error) => {
+        console.error("Error getting session:", error);
+      });
+
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (_event, newSession) => {
+        setSession(newSession);
+      }
+    );
+
+    return () => {
+      authListener?.subscription.unsubscribe();
+    };
+  }, []);
+
   return (
     <Router>
       <Box margin={0}>
-        <AppContent />
+        {session ? (
+          <AppContent session={session} />
+        ) : (
+          <HomePage session={session} />
+        )}
       </Box>
     </Router>
   );

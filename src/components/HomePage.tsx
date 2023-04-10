@@ -8,8 +8,14 @@ import {
   Link,
   Button,
 } from "@chakra-ui/react";
+import { Session } from "@supabase/supabase-js";
+import SignIn from "./SignIn";
 
-const HomePage = () => {
+interface HomePageProps {
+  session: Session | null;
+}
+
+const HomePage: React.FC<HomePageProps> = ({ session }) => {
   return (
     <Box
       w="100vw"
@@ -37,27 +43,32 @@ const HomePage = () => {
           through our amazing collection of movies and TV shows, check out
           trending content, and add your favorites to your personal list.
         </Text>
-        <HStack spacing={4}>
-          {[
-            { href: "/movies", label: "Movies" },
-            { href: "/tvshows", label: "TV Shows" },
-            { href: "/people", label: "People" },
-            { href: "/trending", label: "Trending" },
-            { href: "/favorites", label: "Favorites" },
-          ].map(({ href, label }) => (
-            <Link href={href} key={href} textDecoration="none">
-              <Button
-                bg="rgba(30, 144, 255, 0.8)"
-                _hover={{ bg: "rgba(30, 144, 255, 1)" }}
-                color="white"
-                fontWeight="bold"
-                borderRadius="md"
-              >
-                {label}
-              </Button>
-            </Link>
-          ))}
-        </HStack>
+        {!session && <SignIn />}
+        {session && (
+          <>
+            <HStack spacing={4}>
+              {[
+                { href: "/movies", label: "Movies" },
+                { href: "/tvshows", label: "TV Shows" },
+                { href: "/people", label: "People" },
+                { href: "/trending", label: "Trending" },
+                { href: "/favorites", label: "Favorites" },
+              ].map(({ href, label }) => (
+                <Link href={href} key={href} textDecoration="none">
+                  <Button
+                    bg="rgba(30, 144, 255, 0.8)"
+                    _hover={{ bg: "rgba(30, 144, 255, 1)" }}
+                    color="white"
+                    fontWeight="bold"
+                    borderRadius="md"
+                  >
+                    {label}
+                  </Button>
+                </Link>
+              ))}
+            </HStack>
+          </>
+        )}
       </VStack>
     </Box>
   );
