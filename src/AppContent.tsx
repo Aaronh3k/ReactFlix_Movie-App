@@ -45,7 +45,7 @@ const AppContent: React.FC<AppContentProps> = ({ session }) => {
     >
       {!isHomePage && (
         <GridItem area={"nav"}>
-          <NavBar />
+          <NavBar session={session} />
         </GridItem>
       )}
       <Show above="lg">

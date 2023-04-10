@@ -12,8 +12,16 @@ import {
 import { SearchIcon } from "@chakra-ui/icons";
 import ColorModeSwitch from "./ColorModeSwitch";
 import { Link } from "react-router-dom";
+import { Session } from "@supabase/supabase-js";
+import { IconButton } from "@chakra-ui/react";
+import { AiOutlineUser } from "react-icons/ai";
+import { Tooltip } from "@chakra-ui/react";
 
-const NavBar = () => {
+interface NavBarProps {
+  session: Session | null;
+}
+
+const NavBar: React.FC<NavBarProps> = ({ session }) => {
   const { colorMode } = useColorMode();
   const bgColor = { light: "white", dark: "gray.700" };
   const borderColor = { light: "gray.200", dark: "gray.600" };
@@ -100,6 +108,27 @@ const NavBar = () => {
             Favourites
           </ChakraLink>
         </Flex>
+        <Spacer />
+        <Flex alignItems="center">
+          {session && (
+            <ChakraLink
+              as={Link}
+              to="/account"
+              ml={4}
+              _hover={{ textDecoration: "none" }}
+            >
+              <Tooltip label="Account" aria-label="Account">
+                <IconButton
+                  aria-label="Account"
+                  icon={<AiOutlineUser />}
+                  variant="ghost"
+                  borderRadius="full"
+                />
+              </Tooltip>
+            </ChakraLink>
+          )}
+        </Flex>
+
         <Spacer />
         <ColorModeSwitch />
       </Flex>
