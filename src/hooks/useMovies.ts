@@ -17,7 +17,8 @@ interface FetchMoviesResponse {
 const useMovies = (
   selectedGenreId?: number | null,
   page?: number,
-  filter?: string
+  filter?: string,
+  searchQuery?: string
 ) => {
   let endpoint;
 

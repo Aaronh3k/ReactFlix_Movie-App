@@ -31,7 +31,7 @@ const MovieGrid = ({ selectedGenreId }: MovieGridProps) => {
   const skeletons = Array.from({ length: 10 }, (_, i) => i + 1);
 
   return (
-    <Box paddingTop="80px">
+    <Box paddingTop="60px">
       <MovieFilter onFilterChange={handleFilterChange} />
       {error && <Text>{error}</Text>}
       <SimpleGrid
