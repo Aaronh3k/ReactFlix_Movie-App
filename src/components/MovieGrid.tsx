@@ -1,15 +1,23 @@
 import { SimpleGrid, Text } from "@chakra-ui/react";
+import { useState } from "react";
 import useMovies from "../hooks/useMovies";
 import MovieCard from "./MovieCard";
 import MovieCardContainer from "./MovieCardContainer";
 import MovieCardSkeleton from "./MovieCardSkeleton";
+import Pagination from "./Pagination";
 
 interface MovieGridProps {
   selectedGenreId?: number | null;
 }
 
 const MovieGrid = ({ selectedGenreId }: MovieGridProps) => {
-  const { movies, error, isLoading } = useMovies(selectedGenreId);
+  const [currentPage, setCurrentPage] = useState(1);
+  const { movies, error, isLoading } = useMovies(selectedGenreId, currentPage);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
   const skeletons = Array.from({ length: 10 }, (_, i) => i + 1);
 
   return (
@@ -32,6 +40,7 @@ const MovieGrid = ({ selectedGenreId }: MovieGridProps) => {
           </MovieCardContainer>
         ))}
       </SimpleGrid>
+      <Pagination currentPage={currentPage} onPageChange={handlePageChange} />
     </>
   );
 };

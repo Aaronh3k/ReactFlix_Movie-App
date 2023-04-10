@@ -14,10 +14,10 @@ interface FetchMoviesResponse {
   results: Movie[];
 }
 
-const useMovies = (selectedGenreId?: number | null) => {
+const useMovies = (selectedGenreId?: number | null, page?: number) => {
   const endpoint = selectedGenreId
-    ? `/discover/movie?with_genres=${selectedGenreId}`
-    : "/movie/popular";
+    ? `/discover/movie?with_genres=${selectedGenreId}&page=${page || 1}`
+    : `/movie/popular?page=${page || 1}`;
 
   const {
     data: movies,
