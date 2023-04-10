@@ -14,16 +14,27 @@ interface FetchMoviesResponse {
   results: Movie[];
 }
 
-const useMovies = (selectedGenreId?: number | null, page?: number) => {
-  const endpoint = selectedGenreId
-    ? `/discover/movie?with_genres=${selectedGenreId}&page=${page || 1}`
-    : `/movie/popular?page=${page || 1}`;
+const useMovies = (
+  selectedGenreId?: number | null,
+  page?: number,
+  filter?: string
+) => {
+  let endpoint;
+
+  if (selectedGenreId) {
+    endpoint = `/discover/movie?with_genres=${selectedGenreId}&page=${
+      page || 1
+    }`;
+  } else {
+    endpoint = `/movie/${filter}?page=${page || 1}`;
+  }
 
   const {
     data: movies,
     error,
     isLoading,
   } = useData<FetchMoviesResponse, Movie>(endpoint, "results");
+
   return { movies, error, isLoading };
 };
 

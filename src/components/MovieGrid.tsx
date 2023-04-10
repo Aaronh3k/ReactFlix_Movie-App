@@ -1,10 +1,11 @@
-import { SimpleGrid, Text } from "@chakra-ui/react";
+import { SimpleGrid, Text, Box } from "@chakra-ui/react";
 import { useState } from "react";
 import useMovies from "../hooks/useMovies";
 import MovieCard from "./MovieCard";
 import MovieCardContainer from "./MovieCardContainer";
 import MovieCardSkeleton from "./MovieCardSkeleton";
 import Pagination from "./Pagination";
+import MovieFilter from "./MovieFilter";
 
 interface MovieGridProps {
   selectedGenreId?: number | null;
@@ -12,16 +13,26 @@ interface MovieGridProps {
 
 const MovieGrid = ({ selectedGenreId }: MovieGridProps) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const { movies, error, isLoading } = useMovies(selectedGenreId, currentPage);
+  const [filter, setFilter] = useState("popular");
+  const { movies, error, isLoading } = useMovies(
+    selectedGenreId,
+    currentPage,
+    filter
+  );
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
+  const handleFilterChange = (newFilter: string) => {
+    setFilter(newFilter);
+  };
+
   const skeletons = Array.from({ length: 10 }, (_, i) => i + 1);
 
   return (
-    <>
+    <Box paddingTop="80px">
+      <MovieFilter onFilterChange={handleFilterChange} />
       {error && <Text>{error}</Text>}
       <SimpleGrid
         columns={{ sm: 1, md: 2, lg: 3, xl: 5 }}
@@ -41,7 +52,7 @@ const MovieGrid = ({ selectedGenreId }: MovieGridProps) => {
         ))}
       </SimpleGrid>
       <Pagination currentPage={currentPage} onPageChange={handlePageChange} />
-    </>
+    </Box>
   );
 };
 
