@@ -27,6 +27,7 @@ const HomePage: React.FC<HomePageProps> = ({ session }) => {
       justifyContent="center"
       display="flex"
       flexDirection="column"
+      userSelect="none"
     >
       <VStack
         spacing={5}

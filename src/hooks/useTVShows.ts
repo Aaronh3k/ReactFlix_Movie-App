@@ -17,16 +17,29 @@ export interface TVShowData {
   vote_count: number;
 }
 
-const useTVShows = (selectedGenreId?: number | null) => {
-  const [endpoint, setEndpoint] = useState<string>("/tv/popular");
+const useTVShows = (
+  selectedGenreId?: number | null,
+  filter = "popular",
+  searchTerm = "",
+  currentPage = 1
+) => {
+  const [endpoint, setEndpoint] = useState<string>(`/tv/${filter}`);
 
   useEffect(() => {
+    let endpointString = `/tv/${filter}?page=${currentPage}`;
+
     if (selectedGenreId) {
-      setEndpoint(`/tv/popular?with_genres=${selectedGenreId}`);
-    } else {
-      setEndpoint("/tv/popular");
+      endpointString += `&with_genres=${selectedGenreId}`;
     }
-  }, [selectedGenreId]);
+
+    if (searchTerm) {
+      endpointString = `/search/tv?query=${encodeURIComponent(
+        searchTerm
+      )}&page=${currentPage}`;
+    }
+
+    setEndpoint(endpointString);
+  }, [selectedGenreId, filter, searchTerm, currentPage]);
 
   const {
     data: tvShows,
