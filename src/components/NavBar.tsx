@@ -100,21 +100,18 @@ const NavBar: React.FC<NavBarProps> = ({ session }) => {
         </Flex>
         <Spacer />
         {session && (
-          <Flex
-            alignItems="center"
-            as={Link}
-            to="/account"
-            ml={4}
-            _hover={{ textDecoration: "none" }}
-          >
+          <Flex alignItems="center" ml={4}>
             <IconButton
+              as={Link}
+              to="/account"
               aria-label="Account"
               icon={<AiOutlineUser />}
               variant="ghost"
               borderRadius="full"
               mr={2}
+              _hover={{ color: "blue.500" }}
             />
-            Account
+            <Text fontWeight="bold">Account</Text>
           </Flex>
         )}
         <Spacer />
@@ -123,15 +120,20 @@ const NavBar: React.FC<NavBarProps> = ({ session }) => {
             <IconButton
               aria-label="Sign Out"
               icon={<AiOutlineLogout />}
-              variant="ghost"
+              variant="solid"
+              colorScheme="red"
               borderRadius="full"
               onClick={() => supabase.auth.signOut()}
               mr={2}
+              _hover={{ boxShadow: "xl" }}
             />
-            Sign Out
+            <Text fontWeight="bold" color="red.500">
+              Sign Out
+            </Text>
           </Flex>
         )}
         <Spacer />
+
         <ColorModeSwitch />
       </Flex>
     </Box>
