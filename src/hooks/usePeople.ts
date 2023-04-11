@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import useData from "./useData";
 
 export interface Person {
@@ -16,14 +17,27 @@ interface FetchPeopleResponse {
   results: Person[];
 }
 
-const usePeople = () => {
-  const endpoint = "/person/popular";
+const usePeople = (filter = "popular", searchTerm = "", currentPage = 1) => {
+  const [endpoint, setEndpoint] = useState<string>(`/person/${filter}`);
+
+  useEffect(() => {
+    let endpointString = `/person/${filter}?page=${currentPage}`;
+
+    if (searchTerm) {
+      endpointString = `/search/person?query=${encodeURIComponent(
+        searchTerm
+      )}&page=${currentPage}`;
+    }
+
+    setEndpoint(endpointString);
+  }, [filter, searchTerm, currentPage]);
 
   const {
     data: people,
     error,
     isLoading,
-  } = useData<FetchPeopleResponse, Person>(endpoint, "results");
+  } = useData<{ results: Person[] }, Person>(endpoint, "results");
+
   return { people, error, isLoading };
 };
 

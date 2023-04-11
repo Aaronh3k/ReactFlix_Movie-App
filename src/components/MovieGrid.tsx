@@ -41,7 +41,7 @@ const MovieGrid = ({ selectedGenreId }: MovieGridProps) => {
       <Flex alignItems="center" justifyContent="space-between" padding="10px">
         <Box>
           <Input
-            placeholder="Search movies"
+            placeholder="Search Movies"
             value={searchTerm}
             onChange={handleSearch}
             width={{ base: "60%", sm: "auto" }}
