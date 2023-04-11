@@ -46,17 +46,6 @@ const NavBar: React.FC<NavBarProps> = ({ session }) => {
           ReactFlix
         </Text>
         <Spacer />
-        {/* <InputGroup maxW="400px">
-          <InputLeftElement pointerEvents="none">
-            <SearchIcon color="gray.300" />
-          </InputLeftElement>
-          <Input
-            type="text"
-            placeholder="Search movies"
-            variant="filled"
-            borderRadius="md"
-          />
-        </InputGroup> */}
         <Spacer />
         <Flex alignItems="center">
           <ChakraLink
