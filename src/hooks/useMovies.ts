@@ -22,8 +22,10 @@ const useMovies = (
 ) => {
   let endpoint;
 
-  if (selectedGenreId) {
-    endpoint = `/discover/movie?with_genres=${selectedGenreId}&page=${
+  if (searchQuery) {
+    endpoint = `/search/movie?query=${searchQuery}&page=${page || 1}`;
+  } else if (selectedGenreId) {
+    endpoint = `/discover/movie?with_genres=${selectedGenreId}&sort_by=${filter}&page=${
       page || 1
     }`;
   } else {

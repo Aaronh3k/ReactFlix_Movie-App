@@ -1,4 +1,4 @@
-import { SimpleGrid, Text, Box } from "@chakra-ui/react";
+import { SimpleGrid, Text, Box, Flex, Input } from "@chakra-ui/react";
 import { useState } from "react";
 import useMovies from "../hooks/useMovies";
 import MovieCard from "./MovieCard";
@@ -14,10 +14,12 @@ interface MovieGridProps {
 const MovieGrid = ({ selectedGenreId }: MovieGridProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [filter, setFilter] = useState("popular");
+  const [searchTerm, setSearchTerm] = useState("");
   const { movies, error, isLoading } = useMovies(
     selectedGenreId,
     currentPage,
-    filter
+    filter,
+    searchTerm
   );
 
   const handlePageChange = (page: number) => {
@@ -28,11 +30,29 @@ const MovieGrid = ({ selectedGenreId }: MovieGridProps) => {
     setFilter(newFilter);
   };
 
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+
   const skeletons = Array.from({ length: 10 }, (_, i) => i + 1);
 
   return (
-    <Box paddingTop="60px">
-      <MovieFilter onFilterChange={handleFilterChange} />
+    <Box paddingTop="10px" userSelect="none">
+      <Flex alignItems="center" justifyContent="space-between" padding="10px">
+        <Box>
+          <Input
+            placeholder="Search movies"
+            value={searchTerm}
+            onChange={handleSearch}
+            width={{ base: "60%", sm: "auto" }}
+            borderColor="blue.500"
+            borderRadius="full"
+            focusBorderColor="blue.500"
+            _placeholder={{ color: "gray.500" }}
+          />
+        </Box>
+        <MovieFilter onFilterChange={handleFilterChange} />
+      </Flex>
       {error && <Text>{error}</Text>}
       <SimpleGrid
         columns={{ sm: 1, md: 2, lg: 3, xl: 5 }}

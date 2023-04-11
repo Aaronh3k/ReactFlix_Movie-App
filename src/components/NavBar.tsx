@@ -46,7 +46,7 @@ const NavBar: React.FC<NavBarProps> = ({ session }) => {
           ReactFlix
         </Text>
         <Spacer />
-        <InputGroup maxW="400px">
+        {/* <InputGroup maxW="400px">
           <InputLeftElement pointerEvents="none">
             <SearchIcon color="gray.300" />
           </InputLeftElement>
@@ -56,7 +56,7 @@ const NavBar: React.FC<NavBarProps> = ({ session }) => {
             variant="filled"
             borderRadius="md"
           />
-        </InputGroup>
+        </InputGroup> */}
         <Spacer />
         <Flex alignItems="center">
           <ChakraLink

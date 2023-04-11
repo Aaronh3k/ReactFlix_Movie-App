@@ -39,7 +39,7 @@ const AppContent: React.FC<AppContentProps> = ({ session }) => {
           <NavBar session={session} />
         </GridItem>
       )}
-      <GridItem area={"main"} padding="50px">
+      <GridItem area={"main"}>
         <Routes>
           <Route path="/movies" element={<MovieGrid />} />
           <Route path="/movie/:movieId" element={<MovieDetailsPage />} />
