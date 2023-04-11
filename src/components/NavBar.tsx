@@ -14,8 +14,9 @@ import ColorModeSwitch from "./ColorModeSwitch";
 import { Link } from "react-router-dom";
 import { Session } from "@supabase/supabase-js";
 import { IconButton } from "@chakra-ui/react";
-import { AiOutlineUser } from "react-icons/ai";
+import { AiOutlineLogout, AiOutlineUser } from "react-icons/ai";
 import { Tooltip } from "@chakra-ui/react";
+import { supabase } from "../supabaseClient";
 
 interface NavBarProps {
   session: Session | null;
@@ -98,26 +99,38 @@ const NavBar: React.FC<NavBarProps> = ({ session }) => {
           </ChakraLink>
         </Flex>
         <Spacer />
-        <Flex alignItems="center">
-          {session && (
-            <ChakraLink
-              as={Link}
-              to="/account"
-              ml={4}
-              _hover={{ textDecoration: "none" }}
-            >
-              <Tooltip label="Account" aria-label="Account">
-                <IconButton
-                  aria-label="Account"
-                  icon={<AiOutlineUser />}
-                  variant="ghost"
-                  borderRadius="full"
-                />
-              </Tooltip>
-            </ChakraLink>
-          )}
-        </Flex>
-
+        {session && (
+          <Flex
+            alignItems="center"
+            as={Link}
+            to="/account"
+            ml={4}
+            _hover={{ textDecoration: "none" }}
+          >
+            <IconButton
+              aria-label="Account"
+              icon={<AiOutlineUser />}
+              variant="ghost"
+              borderRadius="full"
+              mr={2}
+            />
+            Account
+          </Flex>
+        )}
+        <Spacer />
+        {session && (
+          <Flex alignItems="center">
+            <IconButton
+              aria-label="Sign Out"
+              icon={<AiOutlineLogout />}
+              variant="ghost"
+              borderRadius="full"
+              onClick={() => supabase.auth.signOut()}
+              mr={2}
+            />
+            Sign Out
+          </Flex>
+        )}
         <Spacer />
         <ColorModeSwitch />
       </Flex>

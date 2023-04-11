@@ -128,13 +128,13 @@ const Account: React.FC<Props> = ({ session }) => {
               >
                 Update
               </Button>
-              <Button
+              {/* <Button
                 type="button"
                 colorScheme="red"
                 onClick={() => supabase.auth.signOut()}
               >
                 Sign Out
-              </Button>
+              </Button> */}
             </VStack>
           </form>
         </Box>
