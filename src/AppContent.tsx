@@ -12,6 +12,7 @@ import TVShowGrid from "./components/TVShowGrid";
 import TVShowDetailsPage from "./components/TVShowDetailsPage";
 import PeopleGrid from "./components/PeopleGrid";
 import Account from "./components/Account";
+import FavoritesGrid from "./components/FavoritesGrid";
 
 interface AppContentProps {
   session: any;
@@ -41,7 +42,10 @@ const AppContent: React.FC<AppContentProps> = ({ session }) => {
       )}
       <GridItem area={"main"}>
         <Routes>
-          <Route path="/movies" element={<MovieGrid />} />
+          <Route
+            path="/movies"
+            element={<MovieGrid userId={session?.user?.id} />}
+          />
           <Route path="/movie/:movieId" element={<MovieDetailsPage />} />
           <Route path="/person/:personId" element={<PersonDetailsPage />} />
           <Route path="/" element={<HomePage session={session} />} />
@@ -50,6 +54,10 @@ const AppContent: React.FC<AppContentProps> = ({ session }) => {
           <Route path="/tvshow/:tvId" element={<TVShowDetailsPage />} />
           <Route path="/people" element={<PeopleGrid />} />
           <Route path="/account" element={<Account session={session} />} />
+          <Route
+            path="/favorites"
+            element={<FavoritesGrid userId={session?.user?.id} />}
+          />
         </Routes>
       </GridItem>
     </Grid>
