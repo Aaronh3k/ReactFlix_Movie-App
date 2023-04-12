@@ -41,7 +41,10 @@ const AppContent: React.FC<AppContentProps> = ({ session }) => {
       )}
       <GridItem area={"main"}>
         <Routes>
-          <Route path="/movies" element={<MovieGrid />} />
+          <Route
+            path="/movies"
+            element={<MovieGrid userId={session?.user?.id} />}
+          />
           <Route path="/movie/:movieId" element={<MovieDetailsPage />} />
           <Route path="/person/:personId" element={<PersonDetailsPage />} />
           <Route path="/" element={<HomePage session={session} />} />

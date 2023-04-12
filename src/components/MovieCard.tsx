@@ -1,14 +1,17 @@
+import React from "react";
 import { Box, Card, CardBody, HStack, Image, Text } from "@chakra-ui/react";
 import apiClient from "../services/api-client";
 import { Movie } from "../hooks/useMovies";
 import VoteAverage from "./VoteAverage";
 import { Link } from "react-router-dom";
+import FavoriteIcon from "./FavoriteIcon";
 
 interface Props {
   movie: Movie;
+  userId: string | null;
 }
 
-const MovieCard = ({ movie }: Props) => {
+const MovieCard = ({ movie, userId }: Props) => {
   const imageUrl = apiClient.baseImageUrl + "w342/" + movie.poster_path;
 
   return (
@@ -43,6 +46,9 @@ const MovieCard = ({ movie }: Props) => {
           </Box>
           <VoteAverage score={movie.vote_average} />
         </HStack>
+        {userId && (
+          <FavoriteIcon userId={userId} itemId={movie.id} itemType="movie" />
+        )}
       </CardBody>
     </Card>
   );

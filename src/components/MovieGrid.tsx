@@ -1,5 +1,5 @@
+import React, { useState } from "react";
 import { SimpleGrid, Text, Box, Flex, Input } from "@chakra-ui/react";
-import { useState } from "react";
 import useMovies from "../hooks/useMovies";
 import MovieCard from "./MovieCard";
 import MovieCardContainer from "./MovieCardContainer";
@@ -9,9 +9,10 @@ import MovieFilter from "./MovieFilter";
 
 interface MovieGridProps {
   selectedGenreId?: number | null;
+  userId: string | null;
 }
 
-const MovieGrid = ({ selectedGenreId }: MovieGridProps) => {
+const MovieGrid = ({ selectedGenreId, userId }: MovieGridProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [filter, setFilter] = useState("popular");
   const [searchTerm, setSearchTerm] = useState("");
@@ -67,7 +68,7 @@ const MovieGrid = ({ selectedGenreId }: MovieGridProps) => {
           ))}
         {movies.map((movie) => (
           <MovieCardContainer key={movie.id}>
-            <MovieCard movie={movie} />
+            <MovieCard movie={movie} userId={userId} />
           </MovieCardContainer>
         ))}
       </SimpleGrid>
