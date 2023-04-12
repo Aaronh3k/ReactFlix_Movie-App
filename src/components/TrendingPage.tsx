@@ -1,9 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import useData from "../hooks/useData";
 import { Dropdown } from "./Dropdown";
 import {
   Box,
-  Heading,
   VStack,
   HStack,
   Text,
@@ -11,6 +11,7 @@ import {
   SimpleGrid,
   useColorModeValue,
   Flex,
+  Heading,
 } from "@chakra-ui/react";
 import apiClient from "../services/api-client";
 
@@ -28,6 +29,7 @@ interface TrendingItem {
   popularity: number;
   vote_average: number;
   vote_count: number;
+  profile_path?: string;
 }
 
 const TrendingPage: React.FC = () => {
@@ -48,6 +50,17 @@ const TrendingPage: React.FC = () => {
 
   const imageUrl = apiClient.baseImageUrl;
   const boxShadowColor = useColorModeValue("gray.400", "gray.800");
+  const navigate = useNavigate();
+
+  const handleClick = (item: TrendingItem) => {
+    if (item.media_type === "movie") {
+      navigate(`/movie/${item.id}`);
+    } else if (item.media_type === "tv") {
+      navigate(`/tvshow/${item.id}`);
+    } else if (item.media_type === "person") {
+      navigate(`/person/${item.id}`);
+    }
+  };
 
   return (
     <VStack spacing={6} userSelect="none">
@@ -87,9 +100,11 @@ const TrendingPage: React.FC = () => {
             p={4}
             borderRadius="md"
             bg={useColorModeValue("white", "gray.700")}
+            onClick={() => handleClick(item)}
+            cursor="pointer"
           >
             <Image
-              src={`${imageUrl}w185${item.poster_path}`}
+              src={`${imageUrl}w185${item.poster_path || item.profile_path}`}
               alt={item.title || item.original_title || item.name}
               mb={4}
               borderRadius="md"
@@ -97,7 +112,6 @@ const TrendingPage: React.FC = () => {
             <Heading as="h2" size="md" mb={2}>
               {item.title || item.original_title || item.name}
             </Heading>
-            <Text noOfLines={3}>{item.overview}</Text>
           </Box>
         ))}
       </SimpleGrid>

@@ -46,26 +46,6 @@ const PeopleGrid = () => {
             _placeholder={{ color: "gray.500" }}
           />
         </Box>
-        {/* <Select
-          defaultValue="popular"
-          onChange={handleFilterChange}
-          width="fit-content"
-          borderRadius="0"
-          colorScheme="blue"
-          fontWeight="semibold"
-          userSelect="none"
-          _focus={{
-            outline: "none",
-            boxShadow: "none",
-          }}
-          _hover={{
-            bg: "blue.600",
-            color: "white",
-          }}
-        >
-          <option value="popular">Popular</option>
-          <option value="latest">Latest</option>
-        </Select> */}
       </Flex>
       {error && <Text>{error}</Text>}
       <SimpleGrid
