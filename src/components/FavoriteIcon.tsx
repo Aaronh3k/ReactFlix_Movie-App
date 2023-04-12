@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { IconButton } from "@chakra-ui/react";
-import { StarIcon } from "@chakra-ui/icons";
+import { MdFavorite } from "react-icons/md";
 import { supabase } from "../supabaseClient";
 import useFavorites from "../hooks/useFavourite";
 
@@ -55,10 +55,16 @@ const FavoriteIcon: React.FC<FavoriteIconProps> = ({
   return (
     <IconButton
       aria-label="Favorite"
-      icon={<StarIcon />}
-      colorScheme={isFav ? "yellow" : "gray"}
+      icon={<MdFavorite size="1.5em" />}
+      colorScheme={isFav ? "red" : "gray"}
       variant="outline"
       onClick={handleClick}
+      position="absolute"
+      top="0"
+      right="0"
+      zIndex="1"
+      transform="translate(20%, -20%)"
+      borderRadius="50%"
     />
   );
 };
