@@ -68,6 +68,10 @@ export default function SignIn() {
           left={0}
           right={0}
           borderRadius={0}
+          bg={alert.status === "error" ? "red.500" : "blue.500"}
+          color="white"
+          boxShadow="0px 4px 20px rgba(0, 0, 0, 0.2)"
+          py={4}
         >
           <AlertIcon />
           <AlertTitle mr={2}>{alert.title}</AlertTitle>
@@ -77,9 +81,12 @@ export default function SignIn() {
             right="8px"
             top="8px"
             onClick={closeAlert}
+            color="white"
+            _hover={{ bg: "white", color: "black" }}
           />
         </Alert>
       )}
+
       <form onSubmit={handleLogin}>
         <VStack spacing={4} w="100%" maxW="400px">
           <Text fontSize="lg" color="white">
