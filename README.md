@@ -24,14 +24,14 @@ The application is deployed on Vercel, a platform for frontend applications that
 - Dynamic landing page featuring background images, welcome text, and navigation buttons for key sections. Accessible only to authenticated users, with a SignIn component for guests.
 - Comprehensive movie browsing experience with a responsive grid layout, filtering, search functionality, and visually appealing cards that include favoriting and detailed movie information on hover.
 - Comprehensive movie details page featuring:
-  -- Movie title, release date, runtime, and rating.
-  -- Genres displayed as badges for easy identification.
-  -- Overview section with a brief description of the movie.
-  -- Cast section, showcasing top cast members with their profile pictures and character names.
-  -- Expandable movie images section with a smooth scrolling experience and a toggle button for easy navigation.
-  -- Review slider displaying user reviews with their author, rating, and submission date.
-  -- Responsive design, adapting to different screen sizes and devices.
-  -- Seamless integration with external API for fetching movie data, credits, images, and reviews.
+  - Movie title, release date, runtime, and rating.
+  - Genres displayed as badges for easy identification.
+  - Overview section with a brief description of the movie.
+  - Cast section, showcasing top cast members with their profile pictures and character names.
+  - Expandable movie images section with a smooth scrolling experience and a toggle button for easy navigation.
+  - Review slider displaying user reviews with their author, rating, and submission date.
+  - Responsive design, adapting to different screen sizes and devices.
+  - Seamless integration with external API for fetching movie data, credits, images, and reviews.
 - Dynamic TV show browsing experience with a responsive grid layout, filtering, search functionality, and visually appealing cards that include TV show details on hover.
 - Displaying TV show details, cast, reviews, and images with expandable functionality.
 - A searchable and filterable grid of people's information, with pagination and clickable cards to access individual details.
