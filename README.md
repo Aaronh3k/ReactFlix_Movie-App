@@ -19,7 +19,7 @@ ReactFlix retrieves movie data from the TMDB API, a popular and comprehensive mo
 
 The application is deployed on Vercel, a platform for frontend applications that provides seamless deployment, automatic SSL, and global CDN capabilities. This ensures that ReactFlix is accessible, fast, and secure for users around the globe.
 
-## Feature
+## Feature's
 
 - Dynamic landing page featuring background images, welcome text, and navigation buttons for key sections. Accessible only to authenticated users, with a SignIn component for guests.
 - Comprehensive movie browsing experience with a responsive grid layout, filtering, search functionality, and visually appealing cards that include favoriting and detailed movie information on hover.
