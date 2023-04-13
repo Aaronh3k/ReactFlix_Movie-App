@@ -23,6 +23,7 @@ import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 import { Collapse } from "@chakra-ui/transition";
 import useMovieImages, { MovieImage } from "../hooks/useMovieImages";
 import { useEffect, useRef, useState } from "react";
+import ReviewSlider from "./ReviewSlider";
 
 export interface MovieDetails {
   original_title: string;
@@ -151,9 +152,12 @@ const MovieDetailsPage = () => {
         />
 
         <VStack align="start" spacing={4} ml={{ base: 0, md: 8 }} flex="1">
-          <Text fontSize="3xl" fontWeight="bold">
-            {movieDetails?.title}
-          </Text>
+          <Flex alignItems="center" justifyContent="space-between" width="100%">
+            <Text fontSize="4xl" fontWeight="bold" ml={2}>
+              {movieDetails?.title}
+            </Text>
+            {movieId && <ReviewSlider mediaId={movieId} mediaType="movie" />}
+          </Flex>
           <Text>Release Date: {movieDetails?.release_date}</Text>
           <Text>Runtime: {movieDetails?.runtime} minutes</Text>
           <Text>Rating: {movieDetails?.vote_average}/10</Text>

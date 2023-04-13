@@ -55,7 +55,7 @@ const FavoriteIcon: React.FC<FavoriteIconProps> = ({
   return (
     <IconButton
       aria-label="Favorite"
-      icon={<MdFavorite size="1.5em" />}
+      icon={<MdFavorite size="2em" />}
       colorScheme={isFav ? "red" : "gray"}
       variant="outline"
       onClick={handleClick}
@@ -65,6 +65,11 @@ const FavoriteIcon: React.FC<FavoriteIconProps> = ({
       zIndex="1"
       transform="translate(20%, -20%)"
       borderRadius="50%"
+      size="lg"
+      transition="transform 0.2s ease-in-out"
+      _active={{
+        transform: "scale(1.2)",
+      }}
     />
   );
 };
