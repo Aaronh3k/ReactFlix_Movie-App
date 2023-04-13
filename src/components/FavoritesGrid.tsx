@@ -29,6 +29,12 @@ const FavoritesGrid: React.FC<FavoritesGridProps> = ({ userId }) => {
     fetchFavoriteMovies();
   }, [favorites]);
 
+  const onFavoriteRemoved = (movieId: number) => {
+    setFavoriteMovies((prevFavorites) =>
+      prevFavorites.filter((movie) => movie.id !== movieId)
+    );
+  };
+
   return (
     <SimpleGrid
       columns={{ sm: 1, md: 2, lg: 3, xl: 5 }}
@@ -37,7 +43,11 @@ const FavoritesGrid: React.FC<FavoritesGridProps> = ({ userId }) => {
     >
       {favoriteMovies.map((movie) => (
         <MovieCardContainer key={movie.id}>
-          <MovieCard movie={movie} userId={userId} />
+          <MovieCard
+            movie={movie}
+            userId={userId}
+            onFavoriteRemoved={onFavoriteRemoved}
+          />
         </MovieCardContainer>
       ))}
     </SimpleGrid>
