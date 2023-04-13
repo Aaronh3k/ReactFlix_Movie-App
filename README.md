@@ -39,3 +39,4 @@ The application is deployed on Vercel, a platform for frontend applications that
 - A grid of favorite movies that displays movie cards with title, rating, and poster image. Supports adding and removing movies to and from a user's favorites list using a heart-shaped button that changes color on click.
 - A profile page with form inputs for updating user information, avatar upload with preview, and editing functionality. Uses Supabase for data management.
 - A Responsive navigation bar with links to key sections of the website and a color mode switch, as well as icons and text for account management and sign out.
+- A Trending page with a responsive grid layout of trending items, including movies, TV shows, and people. Provides filtering options for media type and time window, and features smooth navigation to individual pages with detailed information about each item.
