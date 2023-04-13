@@ -1,4 +1,3 @@
-# ReactFlix_Movie-App
-Enterprise Web Development
+# Enterprise Web Development - Assignment 1. - ReactFlix
 
 url: https://react-flix-movie-app.vercel.app/
