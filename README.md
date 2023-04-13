@@ -43,4 +43,22 @@ The application is deployed on Vercel, a platform for frontend applications that
 
 ## Feature Design
 
+![home](https://user-images.githubusercontent.com/24919671/231855873-545a14ea-dea1-48db-b86f-8f89cacbc4b7.png)
 
+![home2](https://user-images.githubusercontent.com/24919671/231855886-a5203fc5-54a8-43b1-9557-14a5f291544b.png)
+
+![movie](https://user-images.githubusercontent.com/24919671/231855894-fd49c093-3f3b-48ad-a48f-5a6071c02c72.png)
+
+![movie_details](https://user-images.githubusercontent.com/24919671/231855903-97097d68-47f2-4166-be8f-001f2f565857.png)
+
+![tvshow](https://user-images.githubusercontent.com/24919671/231855915-21efb2ff-9301-4e99-bde0-e1dae8c3ba52.png)
+
+![people](https://user-images.githubusercontent.com/24919671/231855923-198efb68-89da-45b0-b17d-b04dda5eab60.png)
+
+![person_details](https://user-images.githubusercontent.com/24919671/231855934-c7e20e5b-4b3a-4f76-b4a5-4f5312e3e3cc.png)
+
+![trending](https://user-images.githubusercontent.com/24919671/231855940-0c73de59-6f6f-40c4-b771-a32b90cf3cbe.png)
+
+![favourites](https://user-images.githubusercontent.com/24919671/231855947-9ce44da0-9fda-449b-aacb-a81c309c7844.png)
+
+![account](https://user-images.githubusercontent.com/24919671/231855959-a542a0b1-51d8-4877-b0b3-978c3d1445e4.png)
