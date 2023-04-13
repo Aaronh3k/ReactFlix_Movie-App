@@ -11,6 +11,7 @@ import {
   useColorModeValue,
   Center,
   Spinner,
+  Badge,
 } from "@chakra-ui/react";
 import useTVShowDetails from "../hooks/useTVShowDetails";
 import apiClient from "../services/api-client";
@@ -27,6 +28,7 @@ export interface TVShowDetails {
   episode_run_time: number[];
   vote_average: number;
   backdrop_path: string;
+  genres: Array<{ id: number; name: string }>;
 }
 
 const TVShowDetailsPage = () => {
@@ -133,6 +135,22 @@ const TVShowDetailsPage = () => {
           <Text fontSize="lg" fontWeight="bold" mt={2}>
             Rating: {tvShowDetails?.vote_average}
           </Text>
+          <HStack spacing={2}>
+            {tvShowDetails?.genres.map((genre) => (
+              <Badge
+                key={genre.id}
+                borderRadius="full"
+                px={3}
+                py={1}
+                bg="green.500"
+                color="white"
+                fontWeight="bold"
+                fontSize="sm"
+              >
+                {genre.name}
+              </Badge>
+            ))}
+          </HStack>
           <Box mt={4}>
             <Text fontWeight="bold">Overview:</Text>
             <Text>{tvShowDetails?.overview}</Text>
