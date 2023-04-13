@@ -62,3 +62,11 @@ The application is deployed on Vercel, a platform for frontend applications that
 ![favourites](https://user-images.githubusercontent.com/24919671/231855947-9ce44da0-9fda-449b-aacb-a81c309c7844.png)
 
 ![account](https://user-images.githubusercontent.com/24919671/231855959-a542a0b1-51d8-4877-b0b3-978c3d1445e4.png)
+
+![supabase](https://user-images.githubusercontent.com/24919671/231857338-f2f833f8-e1f0-48f5-aa9e-0ac1c2c4fa7b.png)
+
+![favour](https://user-images.githubusercontent.com/24919671/231857335-1cffe35c-d128-4df0-a395-0a258fe6630b.png)
+
+![profile](https://user-images.githubusercontent.com/24919671/231857333-09581488-91d5-4362-aaa8-34f80b74bc18.png)
+
+![vercel](https://user-images.githubusercontent.com/24919671/231857332-50a17789-1181-40c3-a408-1027250385a8.png)
