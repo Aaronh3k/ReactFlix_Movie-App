@@ -12,6 +12,7 @@ import {
   Center,
   Spinner,
   Badge,
+  Collapse,
 } from "@chakra-ui/react";
 import useTVShowDetails from "../hooks/useTVShowDetails";
 import apiClient from "../services/api-client";
@@ -20,6 +21,9 @@ import useTVShowCredits, { Cast } from "../hooks/useTVShowCredits";
 import DefaultProfileImage from "./DefaultProfileImage";
 import useTVShowReviews from "../hooks/useTVShowReviews";
 import ReviewSlider from "./ReviewSlider";
+import useTvShowImages, { TvShowImage } from "../hooks/useTvShowsImages";
+import { useEffect, useRef, useState } from "react";
+import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 
 export interface TVShowDetails {
   original_name: string;
@@ -49,6 +53,24 @@ const TVShowDetailsPage = () => {
     error: reviewsError,
     isLoading: reviewsLoading,
   } = useTVShowReviews(tvShowId);
+  const {
+    tvShowImages,
+    error: imagesError,
+    isLoading: imagesLoading,
+  } = useTvShowImages(tvShowId);
+  const [showImages, setShowImages] = useState(false);
+
+  const toggleImages = () => setShowImages(!showImages);
+
+  const imagesRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (showImages && imagesRef.current) {
+      setTimeout(() => {
+        imagesRef.current?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    }
+  }, [showImages]);
 
   if (isLoading || castLoading || reviewsLoading) {
     return (
@@ -101,6 +123,21 @@ const TVShowDetailsPage = () => {
       </VStack>
     );
   };
+
+  const renderImages = (images: TvShowImage[]) => (
+    <SimpleGrid columns={{ base: 2, sm: 3, md: 4, lg: 6 }} spacing={4} w="100%">
+      {images.map((image, index) => (
+        <Image
+          key={index}
+          src={`${imageUrl}w200${image.file_path}`}
+          alt={`${tvShowDetails?.name} Poster`}
+          borderRadius="md"
+          boxShadow={`0 4px 6px ${boxShadowColor}`}
+          p={10}
+        />
+      ))}
+    </SimpleGrid>
+  );
 
   return (
     <Box userSelect="none">
@@ -168,6 +205,39 @@ const TVShowDetailsPage = () => {
           {cast && renderCast(cast)}
         </VStack>
       </Flex>
+      <Center w="100%" mt={4} mb={4}>
+        <Box
+          as="button"
+          onClick={toggleImages}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          p={2}
+          borderRadius="md"
+          borderWidth={2}
+          borderColor="blue.500"
+          color="blue.500"
+          fontSize="lg"
+          fontWeight="bold"
+          _hover={{ bgColor: "blue.500", color: "white" }}
+        >
+          {showImages ? (
+            <ChevronUpIcon boxSize={6} />
+          ) : (
+            <ChevronDownIcon boxSize={6} />
+          )}
+          <Text ml={2}>More Tv Show Images</Text>
+        </Box>
+      </Center>
+      <div ref={imagesRef}>
+        <Collapse in={showImages}>
+          <Box mx={{ base: 0, md: 0 }} mt={6}>
+            {imagesLoading && <Text>Loading images...</Text>}
+            {imagesError && <Text>Error loading images: {imagesError}</Text>}
+            {tvShowImages && renderImages(tvShowImages)}
+          </Box>
+        </Collapse>
+      </div>
     </Box>
   );
 };
