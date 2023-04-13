@@ -11,6 +11,7 @@ import {
   useColorModeValue,
   Center,
   Button,
+  Badge,
 } from "@chakra-ui/react";
 
 import useMovieDetails from "../hooks/useMovieDetails";
@@ -32,6 +33,7 @@ export interface MovieDetails {
   runtime: number;
   vote_average: number;
   backdrop_path: string;
+  genres: Array<{ id: number; name: string }>;
 }
 
 const MovieDetailsPage = () => {
@@ -155,6 +157,22 @@ const MovieDetailsPage = () => {
           <Text>Release Date: {movieDetails?.release_date}</Text>
           <Text>Runtime: {movieDetails?.runtime} minutes</Text>
           <Text>Rating: {movieDetails?.vote_average}/10</Text>
+          <HStack spacing={2}>
+            {movieDetails?.genres.map((genre) => (
+              <Badge
+                key={genre.id}
+                borderRadius="full"
+                px={3}
+                py={1}
+                bg="green.500"
+                color="white"
+                fontWeight="bold"
+                fontSize="sm"
+              >
+                {genre.name}
+              </Badge>
+            ))}
+          </HStack>
           <Box mt={4}>
             <Text fontWeight="bold">Overview:</Text>
             <Text>{movieDetails?.overview}</Text>
