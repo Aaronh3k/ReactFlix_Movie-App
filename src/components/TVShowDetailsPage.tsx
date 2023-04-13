@@ -18,6 +18,8 @@ import apiClient from "../services/api-client";
 import ScrollableImage from "../components/ScrollableImage";
 import useTVShowCredits, { Cast } from "../hooks/useTVShowCredits";
 import DefaultProfileImage from "./DefaultProfileImage";
+import useTVShowReviews from "../hooks/useTVShowReviews";
+import ReviewSlider from "./ReviewSlider";
 
 export interface TVShowDetails {
   original_name: string;
@@ -42,8 +44,13 @@ const TVShowDetailsPage = () => {
     error: castError,
     isLoading: castLoading,
   } = useTVShowCredits(tvShowId);
+  const {
+    data: reviews,
+    error: reviewsError,
+    isLoading: reviewsLoading,
+  } = useTVShowReviews(tvShowId);
 
-  if (isLoading || castLoading) {
+  if (isLoading || castLoading || reviewsLoading) {
     return (
       <Center>
         <Spinner />
@@ -51,8 +58,8 @@ const TVShowDetailsPage = () => {
     );
   }
 
-  if (error || castError) {
-    return <Text>Error: {error || castError}</Text>;
+  if (error || castError || reviewsError) {
+    return <Text>Error: {error || castError || reviewsError}</Text>;
   }
 
   const renderCast = (castMembers: Cast[]) => {
@@ -116,9 +123,12 @@ const TVShowDetailsPage = () => {
           mb={{ base: 4, md: 0 }}
         />
         <VStack align="start" spacing={4} ml={{ base: 0, md: 8 }} flex="1">
-          <Text fontSize="3xl" fontWeight="bold">
-            {tvShowDetails?.name}
-          </Text>
+          <Flex alignItems="center" justifyContent="space-between" width="100%">
+            <Text fontSize="4xl" fontWeight="bold" ml={2}>
+              {tvShowDetails?.name}
+            </Text>
+            {tvShowId && <ReviewSlider mediaId={tvShowId} mediaType="tv" />}
+          </Flex>
           <Text fontSize="md" fontStyle="italic">
             {tvShowDetails?.original_name}
           </Text>
