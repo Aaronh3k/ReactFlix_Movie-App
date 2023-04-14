@@ -43,6 +43,8 @@ The application is deployed on Vercel, a platform for frontend applications that
 
 ## Feature Design
 
+#### The Home Page
+> Authenticated landing page with images, and SignIn.
 ![home](https://user-images.githubusercontent.com/24919671/231855873-545a14ea-dea1-48db-b86f-8f89cacbc4b7.png)
 
 ![home2](https://user-images.githubusercontent.com/24919671/231855886-a5203fc5-54a8-43b1-9557-14a5f291544b.png)
