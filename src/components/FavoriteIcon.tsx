@@ -8,12 +8,14 @@ interface FavoriteIconProps {
   userId: string;
   itemId: number;
   itemType: string;
+  onFavoriteRemoved: (movieId: number) => void;
 }
 
 const FavoriteIcon: React.FC<FavoriteIconProps> = ({
   userId,
   itemId,
   itemType,
+  onFavoriteRemoved,
 }) => {
   const { favorites, setFavorites, isFavorite } = useFavorites(userId);
   const [isFav, setIsFav] = React.useState(false);
@@ -48,6 +50,7 @@ const FavoriteIcon: React.FC<FavoriteIconProps> = ({
         setFavorites((prevFavorites: Array<number>) =>
           prevFavorites.filter((favorite: number) => favorite !== itemId)
         );
+        onFavoriteRemoved(itemId);
       }
     }
   };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { SimpleGrid, Text, Box, Flex, Input } from "@chakra-ui/react";
 import useMovies from "../hooks/useMovies";
 import MovieCard from "./MovieCard";
@@ -22,6 +22,7 @@ const MovieGrid = ({ selectedGenreId, userId }: MovieGridProps) => {
     filter,
     searchTerm
   );
+  const [forceUpdate, setForceUpdate] = useState(false);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -34,6 +35,14 @@ const MovieGrid = ({ selectedGenreId, userId }: MovieGridProps) => {
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
+
+  const handleFavoriteRemoved = (movieId: number) => {
+    setForceUpdate(!forceUpdate);
+  };
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [forceUpdate]);
 
   const skeletons = Array.from({ length: 10 }, (_, i) => i + 1);
 
@@ -68,7 +77,11 @@ const MovieGrid = ({ selectedGenreId, userId }: MovieGridProps) => {
           ))}
         {movies.map((movie) => (
           <MovieCardContainer key={movie.id}>
-            <MovieCard movie={movie} userId={userId} />
+            <MovieCard
+              movie={movie}
+              userId={userId}
+              onFavoriteRemoved={handleFavoriteRemoved}
+            />
           </MovieCardContainer>
         ))}
       </SimpleGrid>

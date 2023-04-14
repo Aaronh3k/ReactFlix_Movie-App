@@ -9,9 +9,10 @@ import FavoriteIcon from "./FavoriteIcon";
 interface Props {
   movie: Movie;
   userId: string | null;
+  onFavoriteRemoved: (movieId: number) => void;
 }
 
-const MovieCard = ({ movie, userId }: Props) => {
+const MovieCard = ({ movie, userId, onFavoriteRemoved }: Props) => {
   const imageUrl = apiClient.baseImageUrl + "w342/" + movie.poster_path;
 
   return (
@@ -47,7 +48,12 @@ const MovieCard = ({ movie, userId }: Props) => {
           <VoteAverage score={movie.vote_average} />
         </HStack>
         {userId && (
-          <FavoriteIcon userId={userId} itemId={movie.id} itemType="movie" />
+          <FavoriteIcon
+            userId={userId}
+            itemId={movie.id}
+            itemType="movie"
+            onFavoriteRemoved={onFavoriteRemoved}
+          />
         )}
       </CardBody>
     </Card>
