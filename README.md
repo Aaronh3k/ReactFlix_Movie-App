@@ -90,6 +90,22 @@ The application is deployed on Vercel, a platform for frontend applications that
 #### The Account Page
 > Account page: form inputs, avatar upload/preview, editing, Supabase data management.
 
+## Paths
+
+| Route             | Info                 |
+|-------------------|----------------------|
+| `/movies`         | MovieGrid component  |
+| `/movie/:movieId` | MovieDetailsPage     |
+| `/person/:personId` | PersonDetailsPage  |
+| `/`               | HomePage component   |
+| `/trending`       | TrendingPage         |
+| `/tvshows`        | TVShowGrid component |
+| `/tvshow/:tvId`   | TVShowDetailsPage    |
+| `/people`         | PeopleGrid component |
+| `/account`        | Account component    |
+| `/favorites`      | FavoritesGrid component |
+
+
 ![account](https://user-images.githubusercontent.com/24919671/231855959-a542a0b1-51d8-4877-b0b3-978c3d1445e4.png)
 
 ![supabase](https://user-images.githubusercontent.com/24919671/231857338-f2f833f8-e1f0-48f5-aa9e-0ac1c2c4fa7b.png)
