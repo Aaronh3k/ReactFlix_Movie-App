@@ -53,37 +53,31 @@ The application is deployed on Vercel, a platform for frontend applications that
 ![home2](https://user-images.githubusercontent.com/24919671/231855886-a5203fc5-54a8-43b1-9557-14a5f291544b.png)
 
 #### The Movie Page
-
 > Movie browsing Page with responsive grid, filter, search, appealing cards, favoriting, and hover details.
 
 ![movie](https://user-images.githubusercontent.com/24919671/231855894-fd49c093-3f3b-48ad-a48f-5a6071c02c72.png)
 
 #### The Movie Detail Page
-
 > Movie details Page: title, date, runtime, rating, genres, overview, cast, images, reviews, responsive design, API integration.
 
 ![movie_details](https://user-images.githubusercontent.com/24919671/231855903-97097d68-47f2-4166-be8f-001f2f565857.png)
 
 #### The TV Show Page
-
 > TV show browsing Page: responsive grid, filter, search, appealing cards, hover details.
 
 ![tvshow](https://user-images.githubusercontent.com/24919671/231855915-21efb2ff-9301-4e99-bde0-e1dae8c3ba52.png)
 
 #### The People Page
-
 > Searchable, filterable people page with pagination and clickable detail cards.
 
 ![people](https://user-images.githubusercontent.com/24919671/231855923-198efb68-89da-45b0-b17d-b04dda5eab60.png)
 
 #### The People Details Page
-
 > Person info page: bio, known-for, credits, show-more option.
 
 ![person_details](https://user-images.githubusercontent.com/24919671/231855934-c7e20e5b-4b3a-4f76-b4a5-4f5312e3e3cc.png)
 
 #### The Trending Page
-
 > Trending page: responsive grid, movies/TV/people, filter by type/time, smooth navigation to details.
 
 ![trending](https://user-images.githubusercontent.com/24919671/231855940-0c73de59-6f6f-40c4-b771-a32b90cf3cbe.png)
