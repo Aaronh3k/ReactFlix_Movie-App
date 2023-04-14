@@ -90,28 +90,36 @@ The application is deployed on Vercel, a platform for frontend applications that
 #### The Account Page
 > Account page: form inputs, avatar upload/preview, editing, Supabase data management.
 
-## Paths
-
-| Route             | Info                 |
-|-------------------|----------------------|
-| `/movies`         | MovieGrid component  |
-| `/movie/:movieId` | MovieDetailsPage     |
-| `/person/:personId` | PersonDetailsPage  |
-| `/`               | HomePage component   |
-| `/trending`       | TrendingPage         |
-| `/tvshows`        | TVShowGrid component |
-| `/tvshow/:tvId`   | TVShowDetailsPage    |
-| `/people`         | PeopleGrid component |
-| `/account`        | Account component    |
-| `/favorites`      | FavoritesGrid component |
-
-
 ![account](https://user-images.githubusercontent.com/24919671/231855959-a542a0b1-51d8-4877-b0b3-978c3d1445e4.png)
 
+## Paths
+> Only logged in and authenticated users can access the entire application
+
+| Route             | Info                        |
+|-------------------|-----------------------------|
+| `/`               | Home Page                   |
+| `/movies`         | Movies Listing              |
+| `/movie/:movieId` | Individual Movie Details    |
+| `/person/:personId` | Individual Person Details |
+| `/trending`       | Trending Items              |
+| `/tvshows`        | TV Shows Listing            |
+| `/tvshow/:tvId`   | Individual TV Show Details  |
+| `/people`         | People Listing              |
+| `/account`        | User Account                |
+| `/favorites`      | User's Favorite Movies      |
+
+## Supabase
+
 ![supabase](https://user-images.githubusercontent.com/24919671/231857338-f2f833f8-e1f0-48f5-aa9e-0ac1c2c4fa7b.png)
+
+## Persistence
+> 2 Supabase (Postgres) tables used for persisting favourites & user profile (via auth)
 
 ![favour](https://user-images.githubusercontent.com/24919671/231857335-1cffe35c-d128-4df0-a395-0a258fe6630b.png)
 
 ![profile](https://user-images.githubusercontent.com/24919671/231857333-09581488-91d5-4362-aaa8-34f80b74bc18.png)
+
+## Deployment
+Live application - https://react-flix-movie-app.vercel.app/
 
 ![vercel](https://user-images.githubusercontent.com/24919671/231857332-50a17789-1181-40c3-a408-1027250385a8.png)
