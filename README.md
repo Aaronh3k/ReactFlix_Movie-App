@@ -92,7 +92,7 @@ The application is deployed on Vercel, a platform for frontend applications that
 
 ![account](https://user-images.githubusercontent.com/24919671/231855959-a542a0b1-51d8-4877-b0b3-978c3d1445e4.png)
 
-## Paths
+## Authentication.
 > Only logged in and authenticated users can access the entire application
 
 | Route             | Info                        |
