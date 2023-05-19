@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Grid, GridItem } from "@chakra-ui/react";
 import MovieGrid from "./components/MovieGrid";
 import NavBar from "./components/NavBar";
@@ -16,11 +16,12 @@ import FavoritesGrid from "./components/FavoritesGrid";
 
 interface AppContentProps {
   session: any;
+  handleLogin: (email: string, password: string) => Promise<void>;
+  handleRegister: (email: string, password: string, name: string) => Promise<void>;
 }
 
-const AppContent: React.FC<AppContentProps> = ({ session }) => {
+const AppContent: React.FC<AppContentProps> = ({ session, handleLogin, handleRegister }) => {
   const location = useLocation();
-
   const isHomePage = location.pathname === "/";
 
   return (
@@ -48,7 +49,7 @@ const AppContent: React.FC<AppContentProps> = ({ session }) => {
           />
           <Route path="/movie/:movieId" element={<MovieDetailsPage />} />
           <Route path="/person/:personId" element={<PersonDetailsPage />} />
-          <Route path="/" element={<HomePage session={session} />} />
+          <Route path="/" element={<HomePage session={session} handleLogin={handleLogin} handleRegister={handleRegister} />} />
           <Route path="/trending" element={<TrendingPage />} />
           <Route path="/tvshows" element={<TVShowGrid />} />
           <Route path="/tvshow/:tvId" element={<TVShowDetailsPage />} />
