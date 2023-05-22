@@ -2,30 +2,32 @@ import {
   Box,
   Flex,
   Text,
-  Input,
-  InputGroup,
-  InputLeftElement,
   useColorMode,
   Spacer,
   Link as ChakraLink,
 } from "@chakra-ui/react";
-import { SearchIcon } from "@chakra-ui/icons";
 import ColorModeSwitch from "./ColorModeSwitch";
 import { Link } from "react-router-dom";
 import { Session } from "@supabase/supabase-js";
 import { IconButton } from "@chakra-ui/react";
 import { AiOutlineLogout, AiOutlineUser } from "react-icons/ai";
-import { Tooltip } from "@chakra-ui/react";
-import { supabase } from "../supabaseClient";
+import { useNavigate } from "react-router-dom";
 
 interface NavBarProps {
   session: Session | null;
+  handleLogout: () => void;
 }
 
-const NavBar: React.FC<NavBarProps> = ({ session }) => {
+const NavBar: React.FC<NavBarProps> = ({ session, handleLogout }) => {
   const { colorMode } = useColorMode();
   const bgColor = { light: "white", dark: "gray.700" };
   const borderColor = { light: "gray.200", dark: "gray.600" };
+  const navigate = useNavigate();
+
+  const handleLogoutClick = () => {
+    handleLogout();
+    navigate("/");
+  };
 
   return (
     <Box
@@ -116,22 +118,23 @@ const NavBar: React.FC<NavBarProps> = ({ session }) => {
         )}
         <Spacer />
         {session && (
-          <Flex alignItems="center">
-            <IconButton
-              aria-label="Sign Out"
-              icon={<AiOutlineLogout />}
-              variant="solid"
-              colorScheme="red"
-              borderRadius="full"
-              onClick={() => supabase.auth.signOut()}
-              mr={2}
-              _hover={{ boxShadow: "xl" }}
-            />
-            <Text fontWeight="bold" color="red.500">
-              Sign Out
-            </Text>
-          </Flex>
-        )}
+  <Flex alignItems="center">
+<IconButton
+  aria-label="Sign Out"
+  icon={<AiOutlineLogout />}
+  variant="solid"
+  colorScheme="red"
+  borderRadius="full"
+  onClick={handleLogoutClick}
+  mr={2}
+  _hover={{ boxShadow: "xl" }}
+/>
+    <Text fontWeight="bold" color="red.500">
+      Sign Out
+    </Text>
+  </Flex>
+)}
+
         <Spacer />
 
         <ColorModeSwitch />

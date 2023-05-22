@@ -23,13 +23,13 @@ const useMovies = (
   let endpoint;
 
   if (searchQuery) {
-    endpoint = `/search/movie?query=${searchQuery}&page=${page || 1}`;
+    endpoint = `/movies/search?query=${searchQuery}&page=${page || 1}`;
   } else if (selectedGenreId) {
-    endpoint = `/discover/movie?with_genres=${selectedGenreId}&sort_by=${filter}&page=${
+    endpoint = `/movies/discover?with_genres=${selectedGenreId}&sort_by=${filter}&page=${
       page || 1
     }`;
   } else {
-    endpoint = `/movie/${filter}?page=${page || 1}`;
+    endpoint = `/movies/${filter}?page=${page || 1}`;
   }
 
   const {

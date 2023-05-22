@@ -30,8 +30,8 @@ const usePersonCredits = (personId: number | undefined) => {
           `person/${personId}/movie_credits`
         );
         const tvCredits = await apiClient.get(`person/${personId}/tv_credits`);
-        setMovies(movieCredits.data.cast);
-        setTVShows(tvCredits.data.cast);
+        setMovies(movieCredits.data);
+        setTVShows(tvCredits.data);
         setLoading(false);
       } catch (err: any) {
         setError(err.message);

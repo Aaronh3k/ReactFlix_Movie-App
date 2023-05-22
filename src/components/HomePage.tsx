@@ -1,21 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Heading,
   Text,
   VStack,
+  Button,
   HStack,
   Link,
-  Button,
 } from "@chakra-ui/react";
-import { Session } from "@supabase/supabase-js";
-import SignIn from "./SignIn";
+import Register from './Register';
+import Login from './Login';
 
 interface HomePageProps {
-  session: Session | null;
+  session: string | null;
+  handleLogin: (email: string, password: string) => void;
+  handleRegister: (email: string, password: string, name: string) => void;
 }
 
-const HomePage: React.FC<HomePageProps> = ({ session }) => {
+const HomePage: React.FC<HomePageProps> = ({ session, handleLogin, handleRegister }) => {
+  const [isRegister, setIsRegister] = useState(false);
+
+  const switchMode = () => {
+    setIsRegister(prev => !prev);
+  }
+
   return (
     <Box
       w="100vw"
@@ -44,7 +52,18 @@ const HomePage: React.FC<HomePageProps> = ({ session }) => {
           through our amazing collection of movies and TV shows, check out
           trending content, and add your favorites to your personal list.
         </Text>
-        {!session && <SignIn />}
+        {!session && (
+          <>
+            {isRegister ? (
+              <Register registerUser={handleRegister} />
+            ) : (
+              <Login loginUser={handleLogin} />
+            )}
+            <Button onClick={switchMode}>
+              {isRegister ? 'Already have an account? Login' : 'Need an account? Register'}
+            </Button>
+          </>
+        )}
         {session && (
           <>
             <HStack spacing={4}>

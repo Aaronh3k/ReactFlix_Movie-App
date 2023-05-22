@@ -19,7 +19,7 @@ const FavoritesGrid: React.FC<FavoritesGridProps> = ({ userId }) => {
       const moviesData: Movie[] = [];
 
       for (const movieId of favorites) {
-        const { data } = await apiClient.get<Movie>(`/movie/${movieId}`);
+        const { data } = await apiClient.get<Movie>(`/movies/${movieId}`);
         moviesData.push(data);
       }
 

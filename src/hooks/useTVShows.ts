@@ -33,7 +33,7 @@ const useTVShows = (
     }
 
     if (searchTerm) {
-      endpointString = `/search/tv?query=${encodeURIComponent(
+      endpointString = `/tv/search?query=${encodeURIComponent(
         searchTerm
       )}&page=${currentPage}`;
     }
