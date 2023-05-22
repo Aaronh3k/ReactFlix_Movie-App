@@ -17,7 +17,7 @@ interface Review {
 
 export const useMovieReviews = (movieId: number | undefined) => {
   return useData<{ results: Review[] }, Review>(
-    `/movie/${movieId}/reviews`,
+    `/movies/${movieId}/reviews`,
     "results"
   );
 };

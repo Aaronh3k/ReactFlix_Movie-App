@@ -24,7 +24,7 @@ const useMovieCredits = (movieId: number | undefined) => {
     const fetchMovieCredits = async () => {
       try {
         const response = await apiClient.get<{ cast: Cast[] }>(
-          `/movie/${movieId}/credits`
+          `/movies/${movieId}/credits`
         );
         setCast(response.data.cast);
         setIsLoading(false);

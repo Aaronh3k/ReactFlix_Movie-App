@@ -17,7 +17,7 @@ const useMovieDetails = (movieId: number | undefined) => {
 
     const fetchMovieDetails = async () => {
       try {
-        const response = await apiClient.get<MovieDetails>(`/movie/${movieId}`);
+        const response = await apiClient.get<MovieDetails>(`/movies/${movieId}`);
         setMovieDetails(response.data);
         setIsLoading(false);
       } catch (err: any) {

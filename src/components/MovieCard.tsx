@@ -50,9 +50,7 @@ const MovieCard = ({ movie, userId, onFavoriteRemoved }: Props) => {
         {userId && (
           <FavoriteIcon
             userId={userId}
-            itemId={movie.id}
-            itemType="movie"
-            onFavoriteRemoved={onFavoriteRemoved}
+            movieId={movie.id}
           />
         )}
       </CardBody>

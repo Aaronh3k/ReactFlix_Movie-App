@@ -16,11 +16,14 @@ import FavoritesGrid from "./components/FavoritesGrid";
 
 interface AppContentProps {
   session: any;
+  userId: string | null;
+  email: string | null;
   handleLogin: (email: string, password: string) => Promise<void>;
   handleRegister: (email: string, password: string, name: string) => Promise<void>;
+  handleLogout: () => void;
 }
 
-const AppContent: React.FC<AppContentProps> = ({ session, handleLogin, handleRegister }) => {
+const AppContent: React.FC<AppContentProps> = ({ session, userId, email, handleLogin, handleLogout, handleRegister }) => {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
 
@@ -38,28 +41,29 @@ const AppContent: React.FC<AppContentProps> = ({ session, handleLogin, handleReg
     >
       {!isHomePage && (
         <GridItem area={"nav"}>
-          <NavBar session={session} />
-        </GridItem>
+  <NavBar session={session} handleLogout={handleLogout} />
+</GridItem>
+
       )}
       <GridItem area={"main"}>
-        <Routes>
-          <Route
-            path="/movies"
-            element={<MovieGrid userId={session?.user?.id} />}
-          />
-          <Route path="/movie/:movieId" element={<MovieDetailsPage />} />
-          <Route path="/person/:personId" element={<PersonDetailsPage />} />
-          <Route path="/" element={<HomePage session={session} handleLogin={handleLogin} handleRegister={handleRegister} />} />
-          <Route path="/trending" element={<TrendingPage />} />
-          <Route path="/tvshows" element={<TVShowGrid />} />
-          <Route path="/tvshow/:tvId" element={<TVShowDetailsPage />} />
-          <Route path="/people" element={<PeopleGrid />} />
-          <Route path="/account" element={<Account session={session} />} />
-          <Route
-            path="/favorites"
-            element={<FavoritesGrid userId={session?.user?.id} />}
-          />
-        </Routes>
+      <Routes>
+      <Route
+        path="/movies"
+        element={<MovieGrid userId={userId} />}
+      />
+      <Route path="/movie/:movieId" element={<MovieDetailsPage />} />
+      <Route path="/person/:personId" element={<PersonDetailsPage />} />
+      <Route path="/" element={<HomePage session={session} handleLogin={handleLogin} handleRegister={handleRegister} />} />
+      <Route path="/trending" element={<TrendingPage />} />
+      <Route path="/tvshows" element={<TVShowGrid />} />
+      <Route path="/tvshow/:tvId" element={<TVShowDetailsPage />} />
+      <Route path="/people" element={<PeopleGrid />} />
+      <Route path="/account" element={<Account userId={userId} email={email} />} />
+      <Route
+        path="/favorites"
+        element={<FavoritesGrid userId={userId} />}
+      />
+    </Routes>
       </GridItem>
     </Grid>
   );

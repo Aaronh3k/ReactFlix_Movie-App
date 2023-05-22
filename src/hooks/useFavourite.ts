@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { supabase } from "../supabaseClient";
+import apiClient from "../services/api-client";
 
 const useFavorites = (userId: string | null) => {
   const [favorites, setFavorites] = useState<Array<number>>([]);
@@ -8,16 +8,9 @@ const useFavorites = (userId: string | null) => {
     if (!userId) return;
 
     const fetchUserFavorites = async () => {
-      const { data, error } = await supabase
-        .from("favorites")
-        .select("item_id")
-        .eq("user_id", userId);
+      const { data } = await apiClient.get(`/accounts/${userId}/favourites`);
 
-      if (error) {
-        console.error("Error fetching user favorites:", error.message);
-      } else {
-        setFavorites(data.map((favorite) => favorite.item_id));
-      }
+      setFavorites(data);
     };
 
     fetchUserFavorites();

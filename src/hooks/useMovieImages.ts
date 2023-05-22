@@ -26,7 +26,7 @@ const useMovieImages = (movieId: number | undefined) => {
     const fetchMovieImages = async () => {
       try {
         const response = await apiClient.get<{ posters: MovieImage[] }>(
-          `/movie/${movieId}/images`
+          `/movies/${movieId}/images`
         );
         setMovieImages(response.data.posters);
         setIsLoading(false);

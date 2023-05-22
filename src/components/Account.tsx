@@ -1,5 +1,4 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
-import { supabase } from "../supabaseClient";
 import {
   Box,
   Button,
@@ -16,50 +15,48 @@ import {
   InputLeftElement,
   Spinner,
 } from "@chakra-ui/react";
-import Avatar from "./Avatar";
 import { FaUserCircle, FaUser, FaGlobe, FaCheck } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 const MotionBox = motion(Box);
 
 interface Props {
-  session: { user: { id: string; email: string } };
+  userId: string | null;
+  email: string | null;
 }
 
-const Account: React.FC<Props> = ({ session }) => {
+const Account: React.FC<Props> = ({ userId, email }) => {
   const [loading, setLoading] = useState(true);
-  const [fullName, setFullName] = useState<string | null>(null);
+  const [firstName, setFirstName] = useState<string | null>(null);
+  const [lastName, setLastName] = useState<string | null>(null);
   const [username, setUsername] = useState<string | null>(null);
-  const [website, setWebsite] = useState<string | null>(null);
-  const [avatar_url, setAvatarUrl] = useState<string | null>(null);
+  const [websiteUrl, setWebsiteUrl] = useState<string | null>(null);
   const pageBackground = useColorModeValue("gray.100", "gray.800");
   const formBackground = useColorModeValue("white", "gray.700");
 
   useEffect(() => {
     async function getProfile() {
       setLoading(true);
-      const { user } = session;
 
-      let { data, error } = await supabase
-        .from("profiles")
-        .select(`full_name, username, website, avatar_url`)
-        .eq("id", user.id)
-        .single();
+      const response = await fetch('/api/accounts/' + userId, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem('token') || '' }
+      });
 
-      if (error) {
-        console.warn(error);
-      } else if (data) {
-        setFullName(data.full_name);
+      const data = await response.json();
+
+      if (data) {
+        setFirstName(data.firstName);
+        setLastName(data.lastName);
         setUsername(data.username);
-        setWebsite(data.website);
-        setAvatarUrl(data.avatar_url);
+        setWebsiteUrl(data.websiteUrl);
       }
 
       setLoading(false);
     }
 
     getProfile();
-  }, [session]);
+  }, []);
 
   async function updateProfile(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -69,31 +66,28 @@ const Account: React.FC<Props> = ({ session }) => {
 
   async function saveProfile() {
     setLoading(true);
-    const { user } = session;
 
     const updates = {
-      id: user.id,
-      full_name: fullName,
-      username,
-      website,
-      avatar_url,
-      updated_at: new Date(),
+      id: userId,
+      firstName: firstName,
+      lastName: lastName,
+      username: username,
+      websiteUrl: websiteUrl,
     };
 
-    let { error } = await supabase.from("profiles").upsert(updates);
+    const response = await fetch('/api/accounts/' + userId, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem('token') || '' },
+      body: JSON.stringify(updates)
+    });
 
-    if (error) {
-      alert(error.message);
+    const data = await response.json();
+
+    if (!data) {
+      alert('Profile update failed');
     }
-    setLoading(false);
-  }
 
-  async function handleAvatarUpload(
-    event: ChangeEvent<HTMLInputElement>,
-    url: string
-  ) {
-    setAvatarUrl(url);
-    await saveProfile();
+    setLoading(false);
   }
 
   return (
@@ -123,15 +117,9 @@ const Account: React.FC<Props> = ({ session }) => {
           >
             <form onSubmit={updateProfile}>
               <VStack spacing={4} alignItems="center">
-                <Avatar
-                  url={avatar_url}
-                  size={150}
-                  email={session.user.email}
-                  onUpload={handleAvatarUpload}
-                />
                 <FormControl>
                   <FormLabel htmlFor="email">Email</FormLabel>
-                  <Input id="email" type="text" value={session.user.email} />
+                  <Input id="email" type="text" value={email} />
                 </FormControl>
                 <FormControl>
                   <FormLabel htmlFor="username">User Name</FormLabel>
@@ -150,32 +138,47 @@ const Account: React.FC<Props> = ({ session }) => {
                   </InputGroup>
                 </FormControl>
                 <FormControl>
-                  <FormLabel htmlFor="fullName">Full Name</FormLabel>
+                  <FormLabel htmlFor="firstName">First Name</FormLabel>
                   <InputGroup>
                     <InputLeftElement
                       pointerEvents="none"
                       children={<FaUser />}
                     />
                     <Input
-                      id="fullName"
+                      id="firstName"
                       type="text"
-                      value={fullName || ""}
-                      onChange={(e) => setFullName(e.target.value)}
+                      value={firstName || ""}
+                      onChange={(e) => setFirstName(e.target.value)}
                     />
                   </InputGroup>
                 </FormControl>
                 <FormControl>
-                  <FormLabel htmlFor="website">Website</FormLabel>
+                  <FormLabel htmlFor="lastName">Last Name</FormLabel>
+                  <InputGroup>
+                    <InputLeftElement
+                      pointerEvents="none"
+                      children={<FaUser />}
+                    />
+                    <Input
+                      id="lastName"
+                      type="text"
+                      value={lastName || ""}
+                      onChange={(e) => setLastName(e.target.value)}
+                    />
+                  </InputGroup>
+                </FormControl>
+                <FormControl>
+                  <FormLabel htmlFor="websiteUrl">Website</FormLabel>
                   <InputGroup>
                     <InputLeftElement
                       pointerEvents="none"
                       children={<FaGlobe />}
                     />
                     <Input
-                      id="website"
+                      id="websiteUrl"
                       type="url"
-                      value={website || ""}
-                      onChange={(e) => setWebsite(e.target.value)}
+                      value={websiteUrl || ""}
+                      onChange={(e) => setWebsiteUrl(e.target.value)}
                     />
                   </InputGroup>
                 </FormControl>

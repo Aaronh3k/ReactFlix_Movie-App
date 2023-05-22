@@ -24,7 +24,7 @@ const usePeople = (filter = "popular", searchTerm = "", currentPage = 1) => {
     let endpointString = `/person/${filter}?page=${currentPage}`;
 
     if (searchTerm) {
-      endpointString = `/search/person?query=${encodeURIComponent(
+      endpointString = `/person/search?query=${encodeURIComponent(
         searchTerm
       )}&page=${currentPage}`;
     }
