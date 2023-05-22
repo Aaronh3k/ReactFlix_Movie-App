@@ -120,6 +120,5 @@ The application is deployed on Vercel, a platform for frontend applications that
 ![profile](https://user-images.githubusercontent.com/24919671/231857333-09581488-91d5-4362-aaa8-34f80b74bc18.png)
 
 ## Deployment
-Live application - https://react-flix-movie-app.vercel.app/
 
 ![vercel](https://user-images.githubusercontent.com/24919671/231857332-50a17789-1181-40c3-a408-1027250385a8.png)
